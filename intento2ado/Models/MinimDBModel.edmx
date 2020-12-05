@@ -1,0 +1,588 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MINIMARKETModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="categ">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="nom" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="compra">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="prov" Type="int" />
+        </EntityType>
+        <EntityType Name="detalle_c">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="produc" Type="varchar" MaxLength="10" />
+          <Property Name="canti" Type="int" />
+          <Property Name="compra" Type="int" />
+        </EntityType>
+        <EntityType Name="detalle_v">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="produc" Type="varchar" MaxLength="10" />
+          <Property Name="canti" Type="int" />
+          <Property Name="venta" Type="int" />
+          <Property Name="monto" Type="float" />
+        </EntityType>
+        <EntityType Name="prod">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="nom" Type="varchar" MaxLength="20" />
+          <Property Name="detalle" Type="varchar" MaxLength="40" />
+          <Property Name="precio" Type="float" />
+          <Property Name="cat" Type="int" />
+          <Property Name="canti" Type="int" />
+        </EntityType>
+        <EntityType Name="prov">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="nom" Type="varchar" MaxLength="20" />
+          <Property Name="empr" Type="varchar" MaxLength="20" />
+          <Property Name="producto" Type="varchar" MaxLength="20" />
+          <Property Name="cat" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="vend">
+          <Key>
+            <PropertyRef Name="dni" />
+          </Key>
+          <Property Name="dni" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="nom" Type="varchar" MaxLength="20" />
+          <Property Name="pwd" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="venta">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="tot" Type="float" />
+          <Property Name="fecha" Type="date" />
+          <Property Name="dnivend" Type="varchar" MaxLength="8" />
+        </EntityType>
+        <Association Name="FK__compra__prov__2E1BDC42">
+          <End Role="prov" Type="Self.prov" Multiplicity="0..1" />
+          <End Role="compra" Type="Self.compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="prov">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="compra">
+              <PropertyRef Name="prov" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__detalle_c__mov__36B12243">
+          <End Role="compra" Type="Self.compra" Multiplicity="0..1" />
+          <End Role="detalle_c" Type="Self.detalle_c" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="compra">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="detalle_c">
+              <PropertyRef Name="compra" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__detalle_c__produ__35BCFE0A">
+          <End Role="prod" Type="Self.prod" Multiplicity="0..1" />
+          <End Role="detalle_c" Type="Self.detalle_c" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="prod">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="detalle_c">
+              <PropertyRef Name="produc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__detalle_v__produ__47DBAE45">
+          <End Role="prod" Type="Self.prod" Multiplicity="0..1" />
+          <End Role="detalle_v" Type="Self.detalle_v" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="prod">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="detalle_v">
+              <PropertyRef Name="produc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__detalle_v__venta__48CFD27E">
+          <End Role="venta" Type="Self.venta" Multiplicity="0..1" />
+          <End Role="detalle_v" Type="Self.detalle_v" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="venta">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="detalle_v">
+              <PropertyRef Name="venta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__prod__cat__267ABA7A">
+          <End Role="categ" Type="Self.categ" Multiplicity="0..1" />
+          <End Role="prod" Type="Self.prod" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categ">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="prod">
+              <PropertyRef Name="cat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__prov__cat__2B3F6F97">
+          <End Role="categ" Type="Self.categ" Multiplicity="0..1" />
+          <End Role="prov" Type="Self.prov" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categ">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="prov">
+              <PropertyRef Name="cat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__venta__dnivend__4CA06362">
+          <End Role="vend" Type="Self.vend" Multiplicity="0..1" />
+          <End Role="venta" Type="Self.venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="vend">
+              <PropertyRef Name="dni" />
+            </Principal>
+            <Dependent Role="venta">
+              <PropertyRef Name="dnivend" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MINIMARKETModelStoreContainer">
+          <EntitySet Name="categ" EntityType="Self.categ" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="compra" EntityType="Self.compra" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="detalle_c" EntityType="Self.detalle_c" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="detalle_v" EntityType="Self.detalle_v" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="prod" EntityType="Self.prod" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="prov" EntityType="Self.prov" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vend" EntityType="Self.vend" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="venta" EntityType="Self.venta" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__compra__prov__2E1BDC42" Association="Self.FK__compra__prov__2E1BDC42">
+            <End Role="prov" EntitySet="prov" />
+            <End Role="compra" EntitySet="compra" />
+          </AssociationSet>
+          <AssociationSet Name="FK__detalle_c__mov__36B12243" Association="Self.FK__detalle_c__mov__36B12243">
+            <End Role="compra" EntitySet="compra" />
+            <End Role="detalle_c" EntitySet="detalle_c" />
+          </AssociationSet>
+          <AssociationSet Name="FK__detalle_c__produ__35BCFE0A" Association="Self.FK__detalle_c__produ__35BCFE0A">
+            <End Role="prod" EntitySet="prod" />
+            <End Role="detalle_c" EntitySet="detalle_c" />
+          </AssociationSet>
+          <AssociationSet Name="FK__detalle_v__produ__47DBAE45" Association="Self.FK__detalle_v__produ__47DBAE45">
+            <End Role="prod" EntitySet="prod" />
+            <End Role="detalle_v" EntitySet="detalle_v" />
+          </AssociationSet>
+          <AssociationSet Name="FK__detalle_v__venta__48CFD27E" Association="Self.FK__detalle_v__venta__48CFD27E">
+            <End Role="venta" EntitySet="venta" />
+            <End Role="detalle_v" EntitySet="detalle_v" />
+          </AssociationSet>
+          <AssociationSet Name="FK__prod__cat__267ABA7A" Association="Self.FK__prod__cat__267ABA7A">
+            <End Role="categ" EntitySet="categ" />
+            <End Role="prod" EntitySet="prod" />
+          </AssociationSet>
+          <AssociationSet Name="FK__prov__cat__2B3F6F97" Association="Self.FK__prov__cat__2B3F6F97">
+            <End Role="categ" EntitySet="categ" />
+            <End Role="prov" EntitySet="prov" />
+          </AssociationSet>
+          <AssociationSet Name="FK__venta__dnivend__4CA06362" Association="Self.FK__venta__dnivend__4CA06362">
+            <End Role="vend" EntitySet="vend" />
+            <End Role="venta" EntitySet="venta" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MINIMARKETModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="categ">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nom" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="prod" Relationship="Self.FK__prod__cat__267ABA7A" FromRole="categ" ToRole="prod" />
+          <NavigationProperty Name="prov" Relationship="Self.FK__prov__cat__2B3F6F97" FromRole="categ" ToRole="prov" />
+        </EntityType>
+        <EntityType Name="compra">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="prov" Type="Int32" />
+          <NavigationProperty Name="prov1" Relationship="Self.FK__compra__prov__2E1BDC42" FromRole="compra" ToRole="prov" />
+          <NavigationProperty Name="detalle_c" Relationship="Self.FK__detalle_c__mov__36B12243" FromRole="compra" ToRole="detalle_c" />
+        </EntityType>
+        <EntityType Name="detalle_c">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="produc" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="canti" Type="Int32" />
+          <Property Name="compra" Type="Int32" />
+          <NavigationProperty Name="compra1" Relationship="Self.FK__detalle_c__mov__36B12243" FromRole="detalle_c" ToRole="compra" />
+          <NavigationProperty Name="prod" Relationship="Self.FK__detalle_c__produ__35BCFE0A" FromRole="detalle_c" ToRole="prod" />
+        </EntityType>
+        <EntityType Name="detalle_v">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="produc" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="canti" Type="Int32" />
+          <Property Name="venta" Type="Int32" />
+          <Property Name="monto" Type="Double" />
+          <NavigationProperty Name="prod" Relationship="Self.FK__detalle_v__produ__47DBAE45" FromRole="detalle_v" ToRole="prod" />
+          <NavigationProperty Name="venta1" Relationship="Self.FK__detalle_v__venta__48CFD27E" FromRole="detalle_v" ToRole="venta" />
+        </EntityType>
+        <EntityType Name="prod">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nom" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="detalle" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="precio" Type="Double" />
+          <Property Name="cat" Type="Int32" />
+          <Property Name="canti" Type="Int32" />
+          <NavigationProperty Name="categ" Relationship="Self.FK__prod__cat__267ABA7A" FromRole="prod" ToRole="categ" />
+          <NavigationProperty Name="detalle_c" Relationship="Self.FK__detalle_c__produ__35BCFE0A" FromRole="prod" ToRole="detalle_c" />
+          <NavigationProperty Name="detalle_v" Relationship="Self.FK__detalle_v__produ__47DBAE45" FromRole="prod" ToRole="detalle_v" />
+        </EntityType>
+        <EntityType Name="prov">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nom" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="empr" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="producto" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="cat" Type="Int32" />
+          <NavigationProperty Name="categ" Relationship="Self.FK__prov__cat__2B3F6F97" FromRole="prov" ToRole="categ" />
+          <NavigationProperty Name="compra" Relationship="Self.FK__compra__prov__2E1BDC42" FromRole="prov" ToRole="compra" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="vend">
+          <Key>
+            <PropertyRef Name="dni" />
+          </Key>
+          <Property Name="dni" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nom" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="pwd" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="venta" Relationship="Self.FK__venta__dnivend__4CA06362" FromRole="vend" ToRole="venta" />
+        </EntityType>
+        <EntityType Name="venta">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="tot" Type="Double" />
+          <Property Name="fecha" Type="DateTime" Precision="0" />
+          <Property Name="dnivend" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="detalle_v" Relationship="Self.FK__detalle_v__venta__48CFD27E" FromRole="venta" ToRole="detalle_v" />
+          <NavigationProperty Name="vend" Relationship="Self.FK__venta__dnivend__4CA06362" FromRole="venta" ToRole="vend" />
+        </EntityType>
+        <Association Name="FK__prod__cat__267ABA7A">
+          <End Role="categ" Type="Self.categ" Multiplicity="0..1" />
+          <End Role="prod" Type="Self.prod" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categ">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="prod">
+              <PropertyRef Name="cat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__prov__cat__2B3F6F97">
+          <End Role="categ" Type="Self.categ" Multiplicity="0..1" />
+          <End Role="prov" Type="Self.prov" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categ">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="prov">
+              <PropertyRef Name="cat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__compra__prov__2E1BDC42">
+          <End Role="prov" Type="Self.prov" Multiplicity="0..1" />
+          <End Role="compra" Type="Self.compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="prov">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="compra">
+              <PropertyRef Name="prov" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__detalle_c__mov__36B12243">
+          <End Role="compra" Type="Self.compra" Multiplicity="0..1" />
+          <End Role="detalle_c" Type="Self.detalle_c" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="compra">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="detalle_c">
+              <PropertyRef Name="compra" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__detalle_c__produ__35BCFE0A">
+          <End Role="prod" Type="Self.prod" Multiplicity="0..1" />
+          <End Role="detalle_c" Type="Self.detalle_c" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="prod">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="detalle_c">
+              <PropertyRef Name="produc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__detalle_v__produ__47DBAE45">
+          <End Role="prod" Type="Self.prod" Multiplicity="0..1" />
+          <End Role="detalle_v" Type="Self.detalle_v" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="prod">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="detalle_v">
+              <PropertyRef Name="produc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__detalle_v__venta__48CFD27E">
+          <End Role="venta" Type="Self.venta" Multiplicity="0..1" />
+          <End Role="detalle_v" Type="Self.detalle_v" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="venta">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="detalle_v">
+              <PropertyRef Name="venta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__venta__dnivend__4CA06362">
+          <End Role="vend" Type="Self.vend" Multiplicity="0..1" />
+          <End Role="venta" Type="Self.venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="vend">
+              <PropertyRef Name="dni" />
+            </Principal>
+            <Dependent Role="venta">
+              <PropertyRef Name="dnivend" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MINIMARKETEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="categ" EntityType="Self.categ" />
+          <EntitySet Name="compra" EntityType="Self.compra" />
+          <EntitySet Name="detalle_c" EntityType="Self.detalle_c" />
+          <EntitySet Name="detalle_v" EntityType="Self.detalle_v" />
+          <EntitySet Name="prod" EntityType="Self.prod" />
+          <EntitySet Name="prov" EntityType="Self.prov" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="vend" EntityType="Self.vend" />
+          <EntitySet Name="venta" EntityType="Self.venta" />
+          <AssociationSet Name="FK__prod__cat__267ABA7A" Association="Self.FK__prod__cat__267ABA7A">
+            <End Role="categ" EntitySet="categ" />
+            <End Role="prod" EntitySet="prod" />
+          </AssociationSet>
+          <AssociationSet Name="FK__prov__cat__2B3F6F97" Association="Self.FK__prov__cat__2B3F6F97">
+            <End Role="categ" EntitySet="categ" />
+            <End Role="prov" EntitySet="prov" />
+          </AssociationSet>
+          <AssociationSet Name="FK__compra__prov__2E1BDC42" Association="Self.FK__compra__prov__2E1BDC42">
+            <End Role="prov" EntitySet="prov" />
+            <End Role="compra" EntitySet="compra" />
+          </AssociationSet>
+          <AssociationSet Name="FK__detalle_c__mov__36B12243" Association="Self.FK__detalle_c__mov__36B12243">
+            <End Role="compra" EntitySet="compra" />
+            <End Role="detalle_c" EntitySet="detalle_c" />
+          </AssociationSet>
+          <AssociationSet Name="FK__detalle_c__produ__35BCFE0A" Association="Self.FK__detalle_c__produ__35BCFE0A">
+            <End Role="prod" EntitySet="prod" />
+            <End Role="detalle_c" EntitySet="detalle_c" />
+          </AssociationSet>
+          <AssociationSet Name="FK__detalle_v__produ__47DBAE45" Association="Self.FK__detalle_v__produ__47DBAE45">
+            <End Role="prod" EntitySet="prod" />
+            <End Role="detalle_v" EntitySet="detalle_v" />
+          </AssociationSet>
+          <AssociationSet Name="FK__detalle_v__venta__48CFD27E" Association="Self.FK__detalle_v__venta__48CFD27E">
+            <End Role="venta" EntitySet="venta" />
+            <End Role="detalle_v" EntitySet="detalle_v" />
+          </AssociationSet>
+          <AssociationSet Name="FK__venta__dnivend__4CA06362" Association="Self.FK__venta__dnivend__4CA06362">
+            <End Role="vend" EntitySet="vend" />
+            <End Role="venta" EntitySet="venta" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MINIMARKETModelStoreContainer" CdmEntityContainer="MINIMARKETEntities">
+          <EntitySetMapping Name="categ">
+            <EntityTypeMapping TypeName="MINIMARKETModel.categ">
+              <MappingFragment StoreEntitySet="categ">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="compra">
+            <EntityTypeMapping TypeName="MINIMARKETModel.compra">
+              <MappingFragment StoreEntitySet="compra">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="prov" ColumnName="prov" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="detalle_c">
+            <EntityTypeMapping TypeName="MINIMARKETModel.detalle_c">
+              <MappingFragment StoreEntitySet="detalle_c">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="produc" ColumnName="produc" />
+                <ScalarProperty Name="canti" ColumnName="canti" />
+                <ScalarProperty Name="compra" ColumnName="compra" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="detalle_v">
+            <EntityTypeMapping TypeName="MINIMARKETModel.detalle_v">
+              <MappingFragment StoreEntitySet="detalle_v">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="produc" ColumnName="produc" />
+                <ScalarProperty Name="canti" ColumnName="canti" />
+                <ScalarProperty Name="venta" ColumnName="venta" />
+                <ScalarProperty Name="monto" ColumnName="monto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="prod">
+            <EntityTypeMapping TypeName="MINIMARKETModel.prod">
+              <MappingFragment StoreEntitySet="prod">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="detalle" ColumnName="detalle" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="cat" ColumnName="cat" />
+                <ScalarProperty Name="canti" ColumnName="canti" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="prov">
+            <EntityTypeMapping TypeName="MINIMARKETModel.prov">
+              <MappingFragment StoreEntitySet="prov">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="empr" ColumnName="empr" />
+                <ScalarProperty Name="producto" ColumnName="producto" />
+                <ScalarProperty Name="cat" ColumnName="cat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="MINIMARKETModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vend">
+            <EntityTypeMapping TypeName="MINIMARKETModel.vend">
+              <MappingFragment StoreEntitySet="vend">
+                <ScalarProperty Name="dni" ColumnName="dni" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="pwd" ColumnName="pwd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="venta">
+            <EntityTypeMapping TypeName="MINIMARKETModel.venta">
+              <MappingFragment StoreEntitySet="venta">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="tot" ColumnName="tot" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="dnivend" ColumnName="dnivend" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

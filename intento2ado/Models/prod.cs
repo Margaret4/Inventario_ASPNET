@@ -11,7 +11,7 @@ namespace intento2ado.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
     public partial class prod
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,10 +22,18 @@ namespace intento2ado.Models
         }
     
         public string id { get; set; }
+        [Required]
+        [StringLength(10)]
         public string nom { get; set; }
+        [Required]
+        [StringLength(20)]
         public string detalle { get; set; }
+        [Required]
+        
         public Nullable<double> precio { get; set; }
+        
         public Nullable<int> cat { get; set; }
+
         public Nullable<int> canti { get; set; }
     
         public virtual categ categ { get; set; }

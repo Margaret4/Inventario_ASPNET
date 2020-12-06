@@ -1,44 +1,59 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Inventario";
 }
-<select id="Select1">
-    @foreach (var item in Model)
-    {
-        <option value=@item.id>
-            @item.nom
-        </option>
-    }
 
 
-</select>
+<div class=" row">
+    <div class="col-12 col-md-6">
+        <select id="Select1">
+            @foreach (var item in Model)
+            {
+                <option value=@item.id>
+                    @item.nom
+                </option>
+            }
 
 
-@foreach (var item in ViewData.Model)
+        </select>
+
+    </div>
+    <div class="col-12 col-md-6">
+        <button class="btn btn-primary"><i class="far fa-edit"></i> @Html.ActionLink("Nuevo", "NuevoProd","Home") </button>
+    </div>
+
+</div>
+
+
+@foreach (var i in Model)
 {
-    <div >
-        <div class="card mb-3" style="width: 500px">
-            <div class="row no-gutters">
-                <div class="col-md-4 justify-content-center">
-                    <asp:Image CssClass="card-img" sr="" runat="server" />
-                </div>
-                <div class="col-md-8" >
-                    <div class="card-body">
-                        <h5>
-                            <asp:Label runat="server" Text="" CssClass="card-title">
-                                @item.nom
+    foreach (var item in i.prod)
+    {
+        <div>
+            <div class="card mb-3" style="width: 500px">
+                <div class="row no-gutters">
+                    <div class="col-md-4 justify-content-center">
+                        <asp:Image CssClass="card-img" src="" runat="server" />
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5>
+                                <asp:Label runat="server" Text="" CssClass="card-title">
+                                    @item.nom
+                                </asp:Label>
+                            </h5>
+                            <asp:Label runat="server" Text="" CssClass="card-text">
+                                Nombre=@item.nom <br>
+                                Codigo=@item.id <br>
+                                Cantidad=@item.canti <br>
+                                Precio=@item.precio <br>
                             </asp:Label>
-                        </h5>
-                        <asp:Label  runat="server" Text="" CssClass="card-text">
-                            Nombre=@item.nom <br>
-                            Codigo=@item.id <br>
-                            Cantidad=@item.canti <br>
-                            Precio=@item.precio <br>
-                        </asp:Label>
-                        <button class="btn btn-danger" onclick="Eliminar"> <i class="far fa-trash-alt"></i> @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })</button>
-                        <button class="btn btn-primary"><i class="far fa-edit"></i> @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) </button>
+                            <button class="btn btn-danger" onclick="Eliminar"> <i class="far fa-trash-alt"></i> @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })</button>
+                            <button class="btn btn-primary"><i class="far fa-edit"></i> @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    }
+
 }

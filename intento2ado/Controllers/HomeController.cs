@@ -19,18 +19,45 @@ namespace intento2ado.Controllers
 
         public ActionResult Index()
         {
-            ViewData.Model = _db.prod.ToList();
-            ViewData.Model = (from m in _db.prod select m).ToList();
-            //var categs = _db.categ.ToList();
+            
+            List<categ> categs = _db.categ.ToList();
+
             //categs = (from m in _db.categ select m).ToList();
-            return View();
+            return View(categs);
         }
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
+        public ActionResult NuevoProd(){
+            ViewBag.Accounts = new SelectList(_db.categ, "id", "nom","1");//dice datavaluefield :v es el nombre del campo en el db
 
             return View();
         }
+        [HttpPost]
+        public ActionResult NuevoProd(prod newProd)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    using (MINIMARKETEntities db = new MINIMARKETEntities())
+                    {
+                        
+                        _db.prod.Add(newProd);
+                        _db.SaveChanges();
+                    }
+                    return Redirect("/Home");
+
+                }
+                return View();
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        
+        }
+
+
+
 
         public ActionResult Contact()
         {

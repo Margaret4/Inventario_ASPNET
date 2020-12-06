@@ -26,7 +26,7 @@ namespace intento2ado.Controllers
             return View(categs);
         }
         public ActionResult NuevoProd(){
-            ViewBag.Accounts = new SelectList(_db.categ, "id", "nom","1");//dice datavaluefield :v es el nombre del campo en el db
+            ViewBag.cats = new SelectList(_db.categ, "id", "nom","1");//dice datavaluefield :v es el nombre del campo en el db
 
             return View();
         }

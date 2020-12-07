@@ -1,9 +1,14 @@
-﻿@{
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@{
     ViewBag.Title = "Inventario";
 }
 
 
-<div class=" row mb-3'" >
+<div class=" row mb-3'">
     <div class="col-12 col-md-6">
         <select id="Select1">
             @foreach (var item in Model)
@@ -18,7 +23,7 @@
 
     </div>
     <div class="col-12 col-md-6">
-        <button class="btn btn-primary"><i class="far fa-edit"></i> @Html.ActionLink("Nuevo", "NuevoProd", "Home") </button>
+        <button class="btn btn-primary"><i class="far fa-edit"></i> @Html.ActionLink("Nuevo", "NuevoProv", "Proveedor") </button>
     </div>
 
 </div>
@@ -26,7 +31,7 @@
 
     @foreach (var i in Model)
     {
-        foreach (var item in i.prod)
+        foreach (var item in i.prov)
         {
             <div>
                 <div class="card mb-3 mr-3" style="width: 300px">
@@ -41,13 +46,13 @@
                                 <asp:Label runat="server" Text="" CssClass="card-text">
                                     Nombre=@item.nom <br>
                                     Codigo=@item.id <br>
-                                    Cantidad=@item.canti <br>
-                                    Precio=@item.precio <br>
+                                    Empresa=@item.empr <br>
+                                    Categoria= @item.cat <br>
                                 </asp:Label>
 
                                 <button type="button" class="btn btn-danger " data-backdrop="false" data-dismiss="modal" data-toggle="modal" data-target="#@item.id">Borrar</button>
 
-                                <a class="btn btn-primary right" href="~/Home/EditProd/@item.id"><i class="far fa-edit"></i>  Editar </a>
+                                <a class="btn btn-primary right" href="~/Proveedor/EditProv/@item.id"><i class="far fa-edit"></i>  Editar </a>
                             </div>
                         </div>
                     </div>
@@ -68,7 +73,7 @@
                             <p>¿Deea eliminar @item.nom?</p>
                         </div>
                         <div class="modal-footer">
-                            <a class="btn btn-primary" href="~/Home/DeleteProd/@item.id"><i class="far fa-edit"></i>  Eliminar </a>
+                            <a class="btn btn-primary" href="~/Proveedor/DeleteProv/@item.id"><i class="far fa-edit"></i>  Eliminar </a>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
                     </div>

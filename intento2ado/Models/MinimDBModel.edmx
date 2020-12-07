@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MINIMARKETModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="MinimDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="categ">
           <Key>
             <PropertyRef Name="id" />
@@ -56,7 +56,6 @@
           <Property Name="id" Type="int" Nullable="false" />
           <Property Name="nom" Type="varchar" MaxLength="20" />
           <Property Name="empr" Type="varchar" MaxLength="20" />
-          <Property Name="producto" Type="varchar" MaxLength="20" />
           <Property Name="cat" Type="int" />
         </EntityType>
         <EntityType Name="sysdiagrams">
@@ -182,7 +181,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="MINIMARKETModelStoreContainer">
+        <EntityContainer Name="MinimDBModelStoreContainer">
           <EntitySet Name="categ" EntityType="Self.categ" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="compra" EntityType="Self.compra" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="detalle_c" EntityType="Self.detalle_c" Schema="dbo" store:Type="Tables" />
@@ -229,7 +228,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="MINIMARKETModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="MinimDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="categ">
           <Key>
             <PropertyRef Name="id" />
@@ -292,7 +291,6 @@
           <Property Name="id" Type="Int32" Nullable="false" />
           <Property Name="nom" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="empr" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="producto" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="cat" Type="Int32" />
           <NavigationProperty Name="categ" Relationship="Self.FK__prov__cat__2B3F6F97" FromRole="prov" ToRole="categ" />
           <NavigationProperty Name="compra" Relationship="Self.FK__compra__prov__2E1BDC42" FromRole="prov" ToRole="compra" />
@@ -471,9 +469,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="MINIMARKETModelStoreContainer" CdmEntityContainer="MINIMARKETEntities">
+        <EntityContainerMapping StorageEntityContainer="MinimDBModelStoreContainer" CdmEntityContainer="MINIMARKETEntities">
           <EntitySetMapping Name="categ">
-            <EntityTypeMapping TypeName="MINIMARKETModel.categ">
+            <EntityTypeMapping TypeName="MinimDBModel.categ">
               <MappingFragment StoreEntitySet="categ">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="nom" ColumnName="nom" />
@@ -481,7 +479,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="compra">
-            <EntityTypeMapping TypeName="MINIMARKETModel.compra">
+            <EntityTypeMapping TypeName="MinimDBModel.compra">
               <MappingFragment StoreEntitySet="compra">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="prov" ColumnName="prov" />
@@ -489,7 +487,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="detalle_c">
-            <EntityTypeMapping TypeName="MINIMARKETModel.detalle_c">
+            <EntityTypeMapping TypeName="MinimDBModel.detalle_c">
               <MappingFragment StoreEntitySet="detalle_c">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="produc" ColumnName="produc" />
@@ -499,7 +497,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="detalle_v">
-            <EntityTypeMapping TypeName="MINIMARKETModel.detalle_v">
+            <EntityTypeMapping TypeName="MinimDBModel.detalle_v">
               <MappingFragment StoreEntitySet="detalle_v">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="produc" ColumnName="produc" />
@@ -510,7 +508,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="prod">
-            <EntityTypeMapping TypeName="MINIMARKETModel.prod">
+            <EntityTypeMapping TypeName="MinimDBModel.prod">
               <MappingFragment StoreEntitySet="prod">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="nom" ColumnName="nom" />
@@ -522,18 +520,17 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="prov">
-            <EntityTypeMapping TypeName="MINIMARKETModel.prov">
+            <EntityTypeMapping TypeName="MinimDBModel.prov">
               <MappingFragment StoreEntitySet="prov">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="nom" ColumnName="nom" />
                 <ScalarProperty Name="empr" ColumnName="empr" />
-                <ScalarProperty Name="producto" ColumnName="producto" />
                 <ScalarProperty Name="cat" ColumnName="cat" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="MINIMARKETModel.sysdiagrams">
+            <EntityTypeMapping TypeName="MinimDBModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -544,7 +541,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="vend">
-            <EntityTypeMapping TypeName="MINIMARKETModel.vend">
+            <EntityTypeMapping TypeName="MinimDBModel.vend">
               <MappingFragment StoreEntitySet="vend">
                 <ScalarProperty Name="dni" ColumnName="dni" />
                 <ScalarProperty Name="nom" ColumnName="nom" />
@@ -553,7 +550,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="venta">
-            <EntityTypeMapping TypeName="MINIMARKETModel.venta">
+            <EntityTypeMapping TypeName="MinimDBModel.venta">
               <MappingFragment StoreEntitySet="venta">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="tot" ColumnName="tot" />

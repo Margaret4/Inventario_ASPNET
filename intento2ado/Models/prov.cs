@@ -23,7 +23,6 @@ namespace intento2ado.Models
         public int id { get; set; }
         public string nom { get; set; }
         public string empr { get; set; }
-        public string producto { get; set; }
         public Nullable<int> cat { get; set; }
     
         public virtual categ categ { get; set; }

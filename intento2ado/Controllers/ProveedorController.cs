@@ -59,18 +59,6 @@ namespace intento2ado.Controllers
 
         }
 
-
-
-
-        public ActionResult DeleteProv(int id)
-        {
-            var oProv = _db.prov.Find(id);
-            _db.prov.Remove(oProv);
-            _db.SaveChanges();
-
-            return Redirect("/Proveedor");
-        }
-
         public ActionResult EditProv(int id)
         {
 
@@ -92,7 +80,7 @@ namespace intento2ado.Controllers
                         _db.Entry(newProv).State = System.Data.Entity.EntityState.Modified; ;
                         _db.SaveChanges();
                     }
-                    return Redirect("/Home");
+                    return Redirect("/Proveedor");
 
                 }
                 return View();
@@ -106,6 +94,14 @@ namespace intento2ado.Controllers
         }
 
 
+        public ActionResult DeleteProv(int id)
+        {
+            var oProv = _db.prov.Find(id);
+            _db.prov.Remove(oProv);
+            _db.SaveChanges();
+
+            return Redirect("/Proveedor");
+        }
 
     }
 }

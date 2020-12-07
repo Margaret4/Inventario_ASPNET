@@ -232,10 +232,10 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\NuevoProd.cshtml" />
-    <Content Include="Views\Home\DeleteProd.cshtml" />
     <Content Include="Views\Home\EditProd.cshtml" />
     <Content Include="Views\Proveedor\Index.cshtml" />
     <Content Include="Views\Proveedor\NuevoProv.cshtml" />
+    <Content Include="Views\Proveedor\EditProv.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1339,7 +1339,7 @@ window.Modernizr = (function( window, document, undefined ) {
 
     /*>>testprop*/
     // Modernizr.testProp() investigates whether a given style property is recognized
-    // Note that the property names must be provided in the camelCase variant.
+    // Note that the property names must be prodided in the camelCase variant.
     // Modernizr.testProp('pointerEvents')
     Modernizr.testProp      = function(prop){
         return testProps([prop]);
@@ -1349,7 +1349,7 @@ window.Modernizr = (function( window, document, undefined ) {
     /*>>testallprops*/
     // Modernizr.testAllProps() investigates whether a given style property,
     //   or any of its vendor-prefixed variants, is recognized
-    // Note that the property names must be provided in the camelCase variant.
+    // Note that the property names must be prodided in the camelCase variant.
     // Modernizr.testAllProps('boxSizing')
     Modernizr.testAllProps  = testPropsAll;
     /*>>testallprops*/

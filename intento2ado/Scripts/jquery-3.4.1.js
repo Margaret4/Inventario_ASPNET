@@ -2695,7 +2695,7 @@ select = Sizzle.select = function( selector, context, results, seed ) {
 		}
 	}
 
-	// Compile and execute a filtering function if one is not provided
+	// Compile and execute a filtering function if one is not prodided
 	// Provide `match` to avoid retokenization if we modified the selector above
 	( compiled || compile( selector, match ) )(
 		seed,
@@ -3704,7 +3704,7 @@ jQuery.extend( {
 				},
 
 				// Get a promise for this deferred
-				// If obj is provided, the promise aspect is added to the object
+				// If obj is prodided, the promise aspect is added to the object
 				promise: function( obj ) {
 					return obj != null ? jQuery.extend( obj, promise ) : promise;
 				}
@@ -4096,7 +4096,7 @@ Data.prototype = {
 		// In cases where either:
 		//
 		//   1. No key was specified
-		//   2. A string key was specified, but no value provided
+		//   2. A string key was specified, but no value prodided
 		//
 		// Take the "read" path and allow the get method to determine
 		// which value to return, respectively either:
@@ -4183,7 +4183,7 @@ var dataUser = new Data();
 //	Implementation Summary
 //
 //	1. Enforce API surface and semantic compatibility with 1.9.x branch
-//	2. Improve the module's maintainability by reducing the storage
+//	2. Improde the module's maintainability by reducing the storage
 //		paths to a single mechanism.
 //	3. Use the same single mechanism to support "private" and "user" data.
 //	4. _Never_ expose "private" data to user code (TODO: Drop _data, _removeData)
@@ -5135,7 +5135,7 @@ jQuery.event = {
 			type = origType = tmp[ 1 ];
 			namespaces = ( tmp[ 2 ] || "" ).split( "." ).sort();
 
-			// Unbind all events (on this namespace, if provided) for the element
+			// Unbind all events (on this namespace, if prodided) for the element
 			if ( !type ) {
 				for ( type in events ) {
 					jQuery.event.remove( elem, type + types[ t ], handler, selector, true );
@@ -5545,7 +5545,7 @@ jQuery.Event = function( src, props ) {
 		this.type = src;
 	}
 
-	// Put explicitly provided properties onto the event object
+	// Put explicitly prodided properties onto the event object
 	if ( props ) {
 		jQuery.extend( this, props );
 	}
@@ -6514,7 +6514,7 @@ function boxModelAdjustment( elem, dimension, box, isBorderBox, styles, computed
 		}
 	}
 
-	// Account for positive content-box scroll gutter when requested by providing computedVal
+	// Account for positive content-box scroll gutter when requested by prodiding computedVal
 	if ( !isBorderBox && computedVal >= 0 ) {
 
 		// offsetWidth/offsetHeight is a rounded sum of content, padding, scroll gutter, and border
@@ -6699,7 +6699,7 @@ jQuery.extend( {
 				style[ name ] = "inherit";
 			}
 
-			// If a hook was provided, use that value, otherwise just set the specified value
+			// If a hook was prodided, use that value, otherwise just set the specified value
 			if ( !hooks || !( "set" in hooks ) ||
 				( value = hooks.set( elem, value, extra ) ) !== undefined ) {
 
@@ -6712,7 +6712,7 @@ jQuery.extend( {
 
 		} else {
 
-			// If a hook was provided get the non-computed value from there
+			// If a hook was prodided get the non-computed value from there
 			if ( hooks && "get" in hooks &&
 				( ret = hooks.get( elem, false, extra ) ) !== undefined ) {
 
@@ -6739,7 +6739,7 @@ jQuery.extend( {
 		// Try prefixed name followed by the unprefixed name
 		hooks = jQuery.cssHooks[ name ] || jQuery.cssHooks[ origName ];
 
-		// If a hook was provided get the computed value from there
+		// If a hook was prodided get the computed value from there
 		if ( hooks && "get" in hooks ) {
 			val = hooks.get( elem, true, extra );
 		}
@@ -6754,7 +6754,7 @@ jQuery.extend( {
 			val = cssNormalTransform[ name ];
 		}
 
-		// Make numeric if forced or a qualifier was provided and val looks numeric
+		// Make numeric if forced or a qualifier was prodided and val looks numeric
 		if ( extra === "" || extra ) {
 			num = parseFloat( val );
 			return extra === true || isFinite( num ) ? num || 0 : val;
@@ -8953,7 +8953,7 @@ function ajaxConvert( s, response, jqXHR, isSuccess ) {
 			jqXHR[ s.responseFields[ current ] ] = response;
 		}
 
-		// Apply the dataFilter if provided
+		// Apply the dataFilter if prodided
 		if ( !prev && isSuccess && s.dataFilter ) {
 			response = s.dataFilter( response, s.dataType );
 		}
@@ -9261,7 +9261,7 @@ jQuery.extend( {
 		// Attach deferreds
 		deferred.promise( jqXHR );
 
-		// Add protocol if not provided (prefilters might expect it)
+		// Add protocol if not prodided (prefilters might expect it)
 		// Handle falsy url in the settings object (#10093: consistency with old signature)
 		// We also use the url parameter if available
 		s.url = ( ( url || s.url || location.href ) + "" )
@@ -9730,7 +9730,7 @@ jQuery.ajaxTransport( function( options ) {
 					options.password
 				);
 
-				// Apply custom fields if provided
+				// Apply custom fields if prodided
 				if ( options.xhrFields ) {
 					for ( i in options.xhrFields ) {
 						xhr[ i ] = options.xhrFields[ i ];
@@ -9746,7 +9746,7 @@ jQuery.ajaxTransport( function( options ) {
 				// For cross-domain requests, seeing as conditions for a preflight are
 				// akin to a jigsaw puzzle, we simply never set it to be sure.
 				// (it can always be set on a per-request basis or even using ajaxSetup)
-				// For same-domain requests, won't change header if already provided.
+				// For same-domain requests, won't change header if already prodided.
 				if ( !options.crossDomain && !headers[ "X-Requested-With" ] ) {
 					headers[ "X-Requested-With" ] = "XMLHttpRequest";
 				}
@@ -9856,7 +9856,7 @@ jQuery.ajaxTransport( function( options ) {
 
 
 
-// Prevent auto-execution of scripts when no explicit dataType was provided (See gh-2432)
+// Prevent auto-execution of scripts when no explicit dataType was prodided (See gh-2432)
 jQuery.ajaxPrefilter( function( s ) {
 	if ( s.crossDomain ) {
 		s.contents.script = false;

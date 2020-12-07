@@ -277,7 +277,7 @@
         /// the jQuery Validate validation rule has no parameter values.</summary>
         /// <param name="adapterName" type="String">The name of the adapter to be added. This matches the name used
         /// in the data-val-nnnn HTML attribute (where nnnn is the adapter name).</param>
-        /// <param name="ruleName" type="String" optional="true">[Optional] The name of the jQuery Validate rule. If not provided, the value
+        /// <param name="ruleName" type="String" optional="true">[Optional] The name of the jQuery Validate rule. If not prodided, the value
         /// of adapterName will be used instead.</param>
         /// <returns type="jQuery.validator.unobtrusive.adapters" />
         return this.add(adapterName, function (options) {
@@ -325,7 +325,7 @@
         /// in the data-val-nnnn HTML attribute(where nnnn is the adapter name).</param>
         /// <param name="attribute" type="String">[Optional] The name of the HTML attribute that contains the value.
         /// The default is "val".</param>
-        /// <param name="ruleName" type="String" optional="true">[Optional] The name of the jQuery Validate rule. If not provided, the value
+        /// <param name="ruleName" type="String" optional="true">[Optional] The name of the jQuery Validate rule. If not prodided, the value
         /// of adapterName will be used instead.</param>
         /// <returns type="jQuery.validator.unobtrusive.adapters" />
         return this.add(adapterName, [attribute || "val"], function (options) {

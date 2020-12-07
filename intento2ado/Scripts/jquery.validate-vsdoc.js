@@ -11,7 +11,7 @@
 * Note: While Microsoft is not the author of this file, Microsoft is
 * offering you a license subject to the terms of the Microsoft Software
 * License Terms for Microsoft ASP.NET Model View Controller 3.
-* Microsoft reserves all other rights. The notices below are provided
+* Microsoft reserves all other rights. The notices below are prodided
 * for informational purposes only and are not the license terms under
 * which Microsoft distributed this file.
 *
@@ -1242,13 +1242,13 @@ $.format = $.validator.format;
     }
 })(jQuery);
 
-// provides cross-browser focusin and focusout events
+// prodides cross-browser focusin and focusout events
 // IE has native support, in other browsers, use event caputuring (neither bubbles)
 
-// provides delegate(type: String, delegate: Selector, handler: Callback) plugin for easier event delegation
+// prodides delegate(type: String, delegate: Selector, handler: Callback) plugin for easier event delegation
 // handler is only called when $(event.target).is(delegate), in the scope of the jquery-object for event.target 
 ;(function($) {
-	// only implement if not provided by jQuery core (since 1.4)
+	// only implement if not prodided by jQuery core (since 1.4)
 	// TODO verify if jQuery 1.4's implementation is compatible with older jQuery special-event APIs
 	if (!jQuery.event.special.focusin && !jQuery.event.special.focusout && document.addEventListener) {
 		$.each({

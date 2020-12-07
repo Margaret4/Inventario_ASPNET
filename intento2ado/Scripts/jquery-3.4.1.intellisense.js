@@ -29,7 +29,7 @@ intellisense.annotate(jQuery, {
     /// <signature>
     ///   <summary>Creates an object that handles the actual transmission of Ajax data.</summary>
     ///   <param name="dataType" type="String">A string identifying the data type to use</param>
-    ///   <param name="handler(options, originalOptions, jqXHR)" type="Function">A handler to return the new transport object to use with the data type provided in the first argument.</param>
+    ///   <param name="handler(options, originalOptions, jqXHR)" type="Function">A handler to return the new transport object to use with the data type prodided in the first argument.</param>
     /// </signature>
   },
   'boxModel': function() {
@@ -46,7 +46,7 @@ intellisense.annotate(jQuery, {
   },
   'Callbacks': function() {
     /// <signature>
-    ///   <summary>A multi-purpose callbacks list object that provides a powerful way to manage callback lists.</summary>
+    ///   <summary>A multi-purpose callbacks list object that prodides a powerful way to manage callback lists.</summary>
     ///   <param name="flags" type="String">An optional list of space-separated flags that change how the callback list behaves.</param>
     ///   <returns type="Callbacks" />
     /// </signature>
@@ -123,7 +123,7 @@ intellisense.annotate(jQuery, {
   },
   'fn.extend': function() {
     /// <signature>
-    ///   <summary>Merge the contents of an object onto the jQuery prototype to provide new jQuery instance methods.</summary>
+    ///   <summary>Merge the contents of an object onto the jQuery prototype to prodide new jQuery instance methods.</summary>
     ///   <param name="object" type="Object">An object to merge onto the jQuery prototype.</param>
     ///   <returns type="Object" />
     /// </signature>
@@ -166,7 +166,7 @@ intellisense.annotate(jQuery, {
     ///   <summary>Finds the elements of an array which satisfy a filter function. The original array is not affected.</summary>
     ///   <param name="array" type="Array">The array to search through.</param>
     ///   <param name="function(elementOfArray, indexInArray)" type="Function">The function to process each item against.  The first argument to the function is the item, and the second argument is the index.  The function should return a Boolean value.  this will be the global window object.</param>
-    ///   <param name="invert" type="Boolean">If "invert" is false, or not provided, then the function returns an array consisting of all elements for which "callback" returns true.  If "invert" is true, then the function returns an array consisting of all elements for which "callback" returns false.</param>
+    ///   <param name="invert" type="Boolean">If "invert" is false, or not prodided, then the function returns an array consisting of all elements for which "callback" returns true.  If "invert" is true, then the function returns an array consisting of all elements for which "callback" returns false.</param>
     ///   <returns type="Array" />
     /// </signature>
   },
@@ -325,7 +325,7 @@ intellisense.annotate(jQuery, {
     ///   <summary>Load data from the server using a HTTP POST request.</summary>
     ///   <param name="url" type="String">A string containing the URL to which the request is sent.</param>
     ///   <param name="data" type="">A plain object or string that is sent to the server with the request.</param>
-    ///   <param name="success(data, textStatus, jqXHR)" type="Function">A callback function that is executed if the request succeeds. Required if dataType is provided, but can be null in that case.</param>
+    ///   <param name="success(data, textStatus, jqXHR)" type="Function">A callback function that is executed if the request succeeds. Required if dataType is prodided, but can be null in that case.</param>
     ///   <param name="dataType" type="String">The type of data expected from the server. Default: Intelligent Guess (xml, json, script, text, html).</param>
     ///   <returns type="jqXHR" />
     /// </signature>
@@ -387,7 +387,7 @@ intellisense.annotate(jQuery, {
     /// <returns type="jQuery" />
   },
   'support': function() {
-    /// <summary>A collection of properties that represent the presence of different browser features or bugs. Primarily intended for jQuery's internal use; specific properties may be removed when they are no longer needed internally to improve page startup performance.</summary>
+    /// <summary>A collection of properties that represent the presence of different browser features or bugs. Primarily intended for jQuery's internal use; specific properties may be removed when they are no longer needed internally to improde page startup performance.</summary>
     /// <returns type="Object" />
   },
   'trim': function() {
@@ -1831,7 +1831,7 @@ intellisense.annotate(jQuery.fn, {
   },
   'next': function() {
     /// <signature>
-    ///   <summary>Get the immediately following sibling of each element in the set of matched elements. If a selector is provided, it retrieves the next sibling only if it matches that selector.</summary>
+    ///   <summary>Get the immediately following sibling of each element in the set of matched elements. If a selector is prodided, it retrieves the next sibling only if it matches that selector.</summary>
     ///   <param name="selector" type="String">A string containing a selector expression to match elements against.</param>
     ///   <returns type="jQuery" />
     /// </signature>
@@ -2214,12 +2214,12 @@ intellisense.annotate(jQuery.fn, {
   },
   'replaceWith': function() {
     /// <signature>
-    ///   <summary>Replace each element in the set of matched elements with the provided new content and return the set of elements that was removed.</summary>
+    ///   <summary>Replace each element in the set of matched elements with the prodided new content and return the set of elements that was removed.</summary>
     ///   <param name="newContent" type="">The content to insert. May be an HTML string, DOM element, or jQuery object.</param>
     ///   <returns type="jQuery" />
     /// </signature>
     /// <signature>
-    ///   <summary>Replace each element in the set of matched elements with the provided new content and return the set of elements that was removed.</summary>
+    ///   <summary>Replace each element in the set of matched elements with the prodided new content and return the set of elements that was removed.</summary>
     ///   <param name="function" type="Function">A function that returns content with which to replace the set of matched elements.</param>
     ///   <returns type="jQuery" />
     /// </signature>

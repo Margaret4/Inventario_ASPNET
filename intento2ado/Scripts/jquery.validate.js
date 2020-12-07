@@ -432,7 +432,7 @@ $.extend( $.validator, {
 					"[type='radio'], [type='checkbox'], [contenteditable], [type='button']", delegate )
 
 				// Support: Chrome, oldIE
-				// "select" is provided as event.target when clicking a option
+				// "select" is prodided as event.target when clicking a option
 				.on( "click.validate", "select, option, [type='radio'], [type='checkbox']", delegate );
 
 			if ( this.settings.invalidHandler ) {

@@ -19,11 +19,18 @@ namespace intento2ado.Controllers
 
         public ActionResult Index()
         {
-            
+            ViewBag.cats = new SelectList(_db.categ, "id", "nom", "1");
             List<categ> categs = _db.categ.ToList();
 
             //categs = (from m in _db.categ select m).ToList();
             return View(categs);
+        }
+        public ActionResult Index1(int id)
+        {
+            var ps = _db.categ.Find(id).prod.ToList();
+            ViewBag.prods = ps;
+            //categs = (from m in _db.categ select m).ToList();
+            return PartialView("Index1");
         }
         public ActionResult NuevoProd(){
             ViewBag.cats = new SelectList(_db.categ, "id", "nom","1");//dice datavaluefield :v es el nombre del campo en el db
@@ -74,6 +81,7 @@ namespace intento2ado.Controllers
             var oProd = _db.prod.Find(id);
             
             ViewBag.cats = new SelectList(_db.categ, "id", "nom", oProd.cat.ToString());//dice datavaluefield :v es el nombre del campo en el db 
+
             return View(oProd);
         }
         [HttpPost]
@@ -101,8 +109,5 @@ namespace intento2ado.Controllers
             }
 
         }
-
-
-
     }
 }

@@ -236,6 +236,8 @@
     <Content Include="Views\Proveedor\Index.cshtml" />
     <Content Include="Views\Proveedor\NuevoProv.cshtml" />
     <Content Include="Views\Proveedor\EditProv.cshtml" />
+    <Content Include="Views\Home\Index1.cshtml" />
+    <Content Include="Views\Proveedor\Index1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

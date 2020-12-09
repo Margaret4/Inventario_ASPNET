@@ -20,9 +20,9 @@ namespace intento2ado.Controllers
 
         public ActionResult Index()
         {
-
+            ViewBag.cats = new SelectList(_db.categ, "id", "nom", "1");
             List<categ> categs = _db.categ.ToList();
-            
+
             //categs = (from m in _db.categ select m).ToList();
             return View(categs);
         }
@@ -57,6 +57,13 @@ namespace intento2ado.Controllers
                 throw new Exception(ex.Message);
             }
 
+        }
+        public ActionResult Index1(int id)
+        {
+            var ps = _db.categ.Find(id).prov.ToList();
+            ViewBag.provs = ps;
+            //categs = (from m in _db.categ select m).ToList();
+            return PartialView("Index1");
         }
 
         public ActionResult EditProv(int id)

@@ -116,12 +116,17 @@
             </section>
 
             <div class="container body-content">
-                @RenderBody()
-                <hr />
-                <footer>
-                    <p>&copy; @DateTime.Now.Year - Minimarket Luciano S.A.</p>
-                </footer>
-            </div>
+                <div class="row">
+                    @RenderBody()
+                    
+
+                    <hr />
+                    
+                    <footer>
+                        <p>&copy; @DateTime.Now.Year - Minimarket Luciano S.A.</p>
+                    </footer>
+                    
+                </div>
         </div>
 
     </div>

@@ -10,77 +10,83 @@
 
 <div class=" row mb-3'">
     <div class="col-12 col-md-6">
-        <select id="Select1">
-            @foreach (var item in Model)
-            {
-                <option value=@item.id>
-                    @item.nom
-                </option>
-            }
-
-
-        </select>
+        <div class="form-group">
+            @Html.Label("categorias", "Categorias", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("categs", (IEnumerable<SelectListItem>)ViewBag.cats, null, new { @class = "form-control" })
+            </div>
+        </div>
 
     </div>
     <div class="col-12 col-md-6">
-        <button class="btn btn-primary"><i class="far fa-edit"></i> @Html.ActionLink("Nuevo", "NuevoProv", "Proveedor") </button>
+        <button class="btn btn-primary"><i class="far fa-edit"></i> @Html.ActionLink("Nuevo", "NuevoProd", "Home") </button>
     </div>
 
-</div>
-<div class="row">
+</div>    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#categs").change(function () {
+                var catId = $(this).val();
+                $('#proveedores').load("Proveedor/Index1/" + catId);
+                //$('#products').load("./Index1/" + catId);
+            })
+        })
+    </script>
+    <div class="row">
+        <div id="proveedores">
+            @foreach (var i in Model)
+            {
+                foreach (var item in i.prov)
+                {
+                    <div>
+                        <div class="card mb-3 mr-3" style="width: 300px">
+                            <div class="row no-gutters">
+                                <div class="col-md-10">
+                                    <div class="card-body">
+                                        <h5>
+                                            <asp:Label runat="server" Text="" CssClass="card-title">
+                                                @item.nom
+                                            </asp:Label>
+                                        </h5>
+                                        <asp:Label runat="server" Text="" CssClass="card-text">
+                                            Nombre=@item.nom <br>
+                                            Codigo=@item.id <br>
+                                            Empresa=@item.empr <br>
+                                            Categoria= @item.cat <br>
+                                        </asp:Label>
 
-    @foreach (var i in Model)
-    {
-        foreach (var item in i.prov)
-        {
-            <div>
-                <div class="card mb-3 mr-3" style="width: 300px">
-                    <div class="row no-gutters">
-                        <div class="col-md-10">
-                            <div class="card-body">
-                                <h5>
-                                    <asp:Label runat="server" Text="" CssClass="card-title">
-                                        @item.nom
-                                    </asp:Label>
-                                </h5>
-                                <asp:Label runat="server" Text="" CssClass="card-text">
-                                    Nombre=@item.nom <br>
-                                    Codigo=@item.id <br>
-                                    Empresa=@item.empr <br>
-                                    Categoria= @item.cat <br>
-                                </asp:Label>
+                                        <a class="btn btn-primary" href="~/Proveedor/EditProv/@item.id"><i class="fas fa-edit"></i> Editar </a>
+                                        <button type="button" class="btn btn-danger " data-backdrop="false" data-dismiss="modal" data-toggle="modal" data-target="#@item.id"><i class="fas fa-trash-alt"></i> Borrar</button>
 
-                                <button type="button" class="btn btn-danger " data-backdrop="false" data-dismiss="modal" data-toggle="modal" data-target="#@item.id">Borrar</button>
-
-                                <a class="btn btn-primary right" href="~/Proveedor/EditProv/@item.id"><i class="far fa-edit"></i>  Editar </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
 
 
-            <div id=@item.id class="modal" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Eliminar Proveedor</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <p>¿Deea eliminar @item.nom?</p>
-                        </div>
-                        <div class="modal-footer">
-                            <a class="btn btn-primary" href="~/Proveedor/DeleteProv/@item.id"><i class="far fa-edit"></i>  Eliminar </a>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <div id=@item.id class="modal" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Eliminar Proveedor</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>¿Deea eliminar @item.nom?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <a class="btn btn-primary" href="~/Proveedor/DeleteProv/@item.id"><i class="far fa-edit"></i>  Eliminar </a>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
 
-        }
-    }
-</div>
-
+                }
+            }
+        </div>
+    </div>

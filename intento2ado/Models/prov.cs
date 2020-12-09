@@ -11,7 +11,8 @@ namespace intento2ado.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class prov
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,10 +20,15 @@ namespace intento2ado.Models
         {
             this.compra = new HashSet<compra>();
         }
-    
+        [Required]
         public int id { get; set; }
+        [Required]
+        [StringLength(20)]
         public string nom { get; set; }
+        [Required]
+        [StringLength(20)]
         public string empr { get; set; }
+        
         public Nullable<int> cat { get; set; }
     
         public virtual categ categ { get; set; }

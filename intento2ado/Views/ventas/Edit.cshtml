@@ -1,0 +1,52 @@
+﻿@model intento2ado.Models.venta
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Editar venta</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.id)
+        <div class="form-row">
+            
+            <div class="form-group col col-md-5">
+                <h5>  Fecha</h5>
+                
+                    @Html.EditorFor(model => model.fecha, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.fecha, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-5">
+                <h5>Vendedor</h5>
+                @Html.DropDownList("dnivend", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.dnivend, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () { $("#detalles").load("@(Url.Action("MostrarDetalle","ventas", new { id = Model.id }))"); })
+                
+        </script>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Guardar Venta" class="btn btn-primary" />
+            </div>
+        </div>
+        <h2>Detalles</h2>
+        <div id="detalles">
+            
+        </div>
+
+    </div>
+
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

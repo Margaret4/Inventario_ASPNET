@@ -21,9 +21,9 @@
                                 Precio=@item.precio <br>
                             </asp:Label>
 
-                            <button type="button" class="btn btn-danger " data-backdrop="false" data-dismiss="modal" data-toggle="modal" data-target="#@item.id">Borrar</button>
+                            <a class="btn btn-primary right" href="~/Home/EditProd/@item.id"><i class="fas fa-edit"></i> Editar </a>
+                            <button type="button" class="btn btn-danger " data-backdrop="false" data-dismiss="modal" data-toggle="modal" data-target="#@item.id"><i class="fas fa-trash-alt"></i> Borrar</button>
 
-                            <a class="btn btn-primary right" href="~/Home/EditProd/@item.id"><i class="far fa-edit"></i>  Editar </a>
                         </div>
                     </div>
                 </div>

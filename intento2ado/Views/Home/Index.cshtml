@@ -3,7 +3,7 @@
 }
 
 
-<div class=" row mb-3'" >
+<div class=" row mb-3" >
     <div class="col-12 col-md-6">
         <div class="form-group">
             @Html.Label("categorias", "Categorias", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -21,12 +21,31 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#categs").change(function () {
+        $('#categs').change(function () {
             var catId = $(this).val();
-            $('#products').load("Home/Index1/" + catId);
-            //$('#products').load("./Index1/" + catId);
-        })
-    })    
+            // This event will be triggered when the dropdown list selection changes
+
+            // We start by fetching the form element. Note that if you have
+            // multiple forms on the page it would be better to provide it
+            // an unique id in the Ajax.BeginForm helper and then use id selector:
+            var form = $('form');
+
+            // finally we send the AJAX request:
+            $.ajax({
+                url: form.attr('Home/Index1/'+catId),
+                type: form.attr('get'),
+                data: form.serialize(),
+                success: function (result) {
+                    // The AJAX request succeeded and the result variable
+                    // will contain the partial HTML returned by the action
+                    // we inject it into the div:
+                    console.log(typeof(result));
+                    $('#products').load('Home/Index1/' + catId);
+                }
+            });
+        });
+    });
+    
 </script>
 <div class="row" id="products">
     

@@ -109,6 +109,54 @@ namespace intento2ado.Controllers
             }
             return View(venta);
         }
+        public ActionResult MostrarDetalle(int id)
+        {
+            venta venta = db.venta.Find(id);
+            MINIMARKETEntities dbContext = new MINIMARKETEntities(); 
+
+            dbContext.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+
+            var prods1 =
+                from p in db.prod
+                join u in db.detalle_v.Where(detalle_v => detalle_v.venta == id)
+                on new { detalle_v = p.id } equals new { detalle_v = u.produc } into lj
+                from x in lj.DefaultIfEmpty()
+                where x.produc == null
+                select new
+                {
+                    id = p.id,
+                    nom = p.nom
+                };
+            List<prod> prods= new List<prod>();
+            
+            ViewBag.prods = new SelectList(prods1, "id", "nom", "1");
+
+            ViewBag.dets = venta.detalle_v.ToList();
+            
+            return PartialView("MostrarDetalle");
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditDet([Bind(Include = "id,tot,fecha,dnivend")] detalle_v detalle_v)
+        {
+            db.Entry(detalle_v).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+            
+        }
+        public ActionResult DeleteDet(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            detalle_v det_venta = db.detalle_v.Find(id);
+            if (det_venta == null)
+            {
+                return HttpNotFound();
+            }
+            return View("Index");
+        }
 
         // POST: ventas/Delete/5
         [HttpPost, ActionName("Delete")]
@@ -120,13 +168,7 @@ namespace intento2ado.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-        public ActionResult MostrarDetalle(int id)
-        {
-            venta venta = db.venta.Find(id);
-
-            ViewBag.dets= venta.detalle_v.ToList();
-            return PartialView("MostrarDetalle");
-        }
+        
 
         protected override void Dispose(bool disposing)
         {

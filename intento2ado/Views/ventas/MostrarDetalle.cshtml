@@ -1,7 +1,8 @@
-﻿@model IEnumerable<intento2ado.Models.detalle_v>
-
+﻿@model intento2ado.Models.detalle_v
+<div id="prueba">
+    
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Añadir detalle", "CreateDet")
 </p>
 <table class="table">
     <tr>
@@ -33,11 +34,87 @@
             
         </td>
         <td>
-            @Html.ActionLink("Edit", "EditDet", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            <button type="button" class="btn btn-primary " data-backdrop="false" data-dismiss="modal" data-toggle="modal" data-target="#@item.id-e"><i class="fas fa-edit"></i> Editar</button>
+            <button type="button" class="btn btn-danger " data-backdrop="false" data-dismiss="modal" data-toggle="modal" data-target="#@item.id-d"><i class="fas fa-trash-alt"></i> Borrar</button>
         </td>
     </tr>
 }
 
 </table>
+@for (var i = 0; i < ViewBag.dets.Count; i++)
+{
+    <div id="@ViewBag.dets[i].id-d" class="modal" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Eliminar Producto</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Desea eliminar @ViewBag.dets[i].prod.nom cantidad @ViewBag.dets[i].canti?</p>
+                </div>
+                <div class="modal-footer">
+                        
+                    <a class="btn btn-primary" href="~/ventas/DeleteDet/@ViewBag.dets[i].id">  Eliminar </a>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@for (var i = 0; i < ViewBag.dets.Count; i++)
+{
+    <div id="@ViewBag.dets[i].id-e" class="modal" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Editar Producto</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        @using(Html.BeginForm("EditDet", "ventas", FormMethod.Post, new {enctype = "multipart/form-data", id = @ViewBag.dets[i].id-f}))
+                         {
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <h5>Producto</h5>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    @{
+                                        //var prodSelected = new { id = @ViewBag.dets[i].produc, nom = @ViewBag.dets[i].prod.nom };
+                                        string nom = @ViewBag.dets[i].prod.nom;
+                                        ViewBag.prod = new SelectList(ViewBag.prods /* List<SelectListItem> */,
+                                          "id",
+                                          "nom",
+                                          @ViewBag.dets[i].produc /* selected value */);
+                                     }
+                                    @Html.DropDownList("ddlDropDownList",(IEnumerable<SelectListItem>)ViewBag.prod, @nom, new { @class = "custom-select" })                                    
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <h5>Cantidad</h5>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <input name="model.canti" value="@ViewBag.dets[i].canti" type="number"/>
+                                    
+                                </div>
+                            </div>                           
+
+                        
+                         }
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" form="@ViewBag.dets[i].id-f" >Guardar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+
+}
+</div>

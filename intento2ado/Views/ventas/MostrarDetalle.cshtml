@@ -57,7 +57,7 @@
                 </div>
                 <div class="modal-footer">
                         
-                    <a class="btn btn-primary" href="~/ventas/DeleteDet/@ViewBag.dets[i].id">  Eliminar </a>
+                    <a class="btn btn-primary" href="@(Url.Action("Edit","ventas", new {  id= @ViewBag.venta  }))">  Eliminar </a>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
@@ -67,6 +67,7 @@
 @for (var i = 0; i < ViewBag.dets.Count; i++)
 {
     <div id="@ViewBag.dets[i].id-e" class="modal" role="dialog">
+            
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -76,14 +77,19 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        @using(Html.BeginForm("EditDet", "ventas", FormMethod.Post, new {enctype = "multipart/form-data", id = @ViewBag.dets[i].id-f}))
-                         {
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <h5>Producto</h5>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    @{
+                        @using (Html.BeginForm("EditDet","ventas", FormMethod.Post, new { @id="myForm-"+@ViewBag.dets[i].id}))
+                        {
+                            @Html.AntiForgeryToken()
+    
+                            <div class="form-horizontal">
+                                
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                @Html.HiddenFor(model => model.id, new {  Value = @ViewBag.dets[i].id})
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.produc, "producto", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                                                            @{
                                         //var prodSelected = new { id = @ViewBag.dets[i].produc, nom = @ViewBag.dets[i].prod.nom };
                                         string nom = @ViewBag.dets[i].prod.nom;
                                         ViewBag.prod = new SelectList(ViewBag.prods /* List<SelectListItem> */,
@@ -91,30 +97,56 @@
                                           "nom",
                                           @ViewBag.dets[i].produc /* selected value */);
                                      }
-                                    @Html.DropDownList("ddlDropDownList",(IEnumerable<SelectListItem>)ViewBag.prod, @nom, new { @class = "custom-select" })                                    
+                                        @Html.DropDownList("produc",(IEnumerable<SelectListItem>)ViewBag.prod, @nom, new { @class = "custom-select" })
+                                        @Html.ValidationMessageFor(model => model.produc, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.canti, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(model => model.canti, new { @Value = @ViewBag.dets[i].canti, @type="number" ,@class = "form-control control-label col-md-10"  })
+                                        @Html.ValidationMessageFor(model => model.canti, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                @Html.HiddenFor(model => model.venta)
+                                @Html.HiddenFor(model => model.monto)    
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" value="Guardar" class="btn btn-primary" />
+                                    </div>
                                 </div>
                             </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <h5>Cantidad</h5>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <input name="model.canti" value="@ViewBag.dets[i].canti" type="number"/>
-                                    
-                                </div>
-                            </div>                           
-
-                        
                          }
+
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" form="@ViewBag.dets[i].id-f" >Guardar</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        
                     </div>
                 </div>
             </div>
     </div>
+    <script>
 
+        $(document).ready(function () {
+            $("#btnSubmit-@ViewBag.dets[i].id").click(function () {
 
+                var myformdata = $("#myForm-@ViewBag.dets[i].id").serialize();
+                console.log(myformdata);
+                $.ajax({
+                    type: "POST",
+                    url:"/ventas/EditDet/@ViewBag.dets[i].id",
+                    data: myformdata,
+                    success: function () {
+                        $("#@ViewBag.dets[i].id-e").modal("hide");
+                    }
+                
+                })
+            })
+
+        })
+
+   
+    </script>
 }
 </div>

@@ -18,6 +18,8 @@ namespace intento2ado.Models
         public string produc { get; set; }
         public Nullable<int> canti { get; set; }
         public Nullable<int> compra { get; set; }
+        public Nullable<double> prec_unit { get; set; }
+        public Nullable<double> tot { get; set; }
     
         public virtual compra compra1 { get; set; }
         public virtual prod prod { get; set; }

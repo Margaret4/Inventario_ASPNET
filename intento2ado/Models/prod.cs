@@ -21,16 +21,11 @@ namespace intento2ado.Models
             this.detalle_c = new HashSet<detalle_c>();
             this.detalle_v = new HashSet<detalle_v>();
         }
-
-        [Required]
+        [Required(ErrorMessage = "Introduzca un codigo de 10 caracteres")]
         public string id { get; set; }
-        [Required]
-        [StringLength(20)]
+        [Required(ErrorMessage = "Introduzca el nombre del producto de 20 caracteres")]
         public string nom { get; set; }
-        [Required]
-        [StringLength(40)]
         public string detalle { get; set; }
-        
         public Nullable<double> precio { get; set; }
         public Nullable<int> cat { get; set; }
         public Nullable<int> canti { get; set; }

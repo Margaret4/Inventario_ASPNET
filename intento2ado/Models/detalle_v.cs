@@ -16,8 +16,8 @@ namespace intento2ado.Models
     {
         public int id { get; set; }
         public string produc { get; set; }
-        public Nullable<int> canti { get; set; }
         public Nullable<int> venta { get; set; }
+        public Nullable<int> canti { get; set; }
         public Nullable<double> monto { get; set; }
     
         public virtual prod prod { get; set; }

@@ -17,8 +17,8 @@ namespace intento2ado.Controllers
         // GET: ventas
         public ActionResult Index()
         {
-            var venta = db.venta.Include(v => v.vend);
-            return View(venta.ToList());
+            var ventas = db.venta.Include(v => v.vend);
+            return View(ventas.ToList());
         }
 
         // GET: ventas/Details/5
@@ -41,6 +41,7 @@ namespace intento2ado.Controllers
         {
             ViewBag.dnivend = new SelectList(db.vend, "dni", "nom");
             ViewBag.ReturnDate = DateTime.Now;
+
             return View();
         }
 
@@ -49,22 +50,25 @@ namespace intento2ado.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,tot,fecha,dnivend")] venta venta)
+        public ActionResult Create(venta venta)
         {
-            if (ModelState.IsValid)
-            {
-                db.venta.Add(venta);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
+            string tiemp = DateTime.Now.ToString();
+            if (venta.dnivend!=null)
+                db.Database.ExecuteSqlCommand("insert into venta values ("+venta.id+",0,'"+tiemp + "','" + venta.dnivend + "');");
             ViewBag.dnivend = new SelectList(db.vend, "dni", "nom", venta.dnivend);
-            return View(venta);
+            int id=db.Database.ExecuteSqlCommand("select id from venta where fecha like'" + tiemp +"';");
+            return RedirectToAction("Edit", new { id = id, flag = true });
         }
 
         // GET: ventas/Edit/5
         public ActionResult Edit(int? id)
         {
+            return RedirectToAction("Edit", new { id = id, flag=false });
+        }
+        public ActionResult Edit(int? id, bool flag)
+        {
+            if (flag) ViewBag.title = "Nueva Venta - Añadir detalle";
+            else ViewBag.title = "Editar Venta";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -74,15 +78,18 @@ namespace intento2ado.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.dnivend = new SelectList(db.vend, "dni", "nom", venta.dnivend);
+            ViewBag.vend = db.vend.Find(venta.dnivend);
+            ViewBag.dnivends = new SelectList(db.vend.ToList(), "dni", "nom", ViewBag.vend.dni);
             return View(venta);
         }
+
 
         // POST: ventas/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        
         public ActionResult Edit([Bind(Include = "id,tot,fecha,dnivend")] venta venta)
         {
             if (ModelState.IsValid)
@@ -109,6 +116,7 @@ namespace intento2ado.Controllers
             }
             return View(venta);
         }
+        
         public ActionResult MostrarDetalle(int id)
         {
             venta venta = db.venta.Find(id);
@@ -128,34 +136,64 @@ namespace intento2ado.Controllers
                     nom = p.nom
                 };
             List<prod> prods= new List<prod>();
-            
-            ViewBag.prods = new SelectList(prods1, "id", "nom", "1");
+            foreach (var i in prods1) {
+                prods.Add(db.prod.Find(i.id));
+            }
+            ViewBag.prods = prods.ToList();
 
             ViewBag.dets = venta.detalle_v.ToList();
+            ViewBag.venta = venta;
             
             return PartialView("MostrarDetalle");
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditDet([Bind(Include = "id,tot,fecha,dnivend")] detalle_v detalle_v)
+        public ActionResult EditDet(int id, detalle_v FormData)
         {
-            db.Entry(detalle_v).State = EntityState.Modified;
+            detalle_v tmp = db.detalle_v.Find(FormData.id);
+            if (FormData.produc != null)
+                tmp.produc = FormData.produc;
+            if (FormData.canti != null)
+                tmp.canti= FormData.canti;
+            db.Entry(tmp).State = EntityState.Modified;
             db.SaveChanges();
-            return RedirectToAction("Index");
-            
+            if (tmp.venta.HasValue)
+            {
+                return Redirect("/ventas/Edit/" + tmp.venta.Value.ToString());  
+            }
+            return Redirect("/ventas/");
         }
-        public ActionResult DeleteDet(int? id)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult NuevoDet(detalle_v FormData,int venta)
         {
-            if (id == null)
+            db.Database.ExecuteSqlCommand("insert into detalle_v values ('"+FormData.produc+"',"+venta+","+FormData.canti+",0);");
+            //no respeta el trigger, por eso despues de insertar debo modificarlo, porque en el update si cumple, puede ser que instead of no cumpla pero si for?
+            int intIdt = db.detalle_v.Max(u => u.id);
+            if (FormData!=null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                detalle_v tmp = db.detalle_v.Find(intIdt);
+                if (FormData.produc != null)
+                    tmp.produc = FormData.produc;
+                if (FormData.canti != null)
+                    tmp.canti = FormData.canti;
+                db.Entry(tmp).State = EntityState.Modified;
+                db.SaveChanges();
+
+                return Redirect("/ventas/Edit/" + venta.ToString());
             }
+            return Redirect("/ventas/Edit/"+ FormData.venta.ToString());
+        }
+        public ActionResult DeleteDet(int id)
+        {            
             detalle_v det_venta = db.detalle_v.Find(id);
-            if (det_venta == null)
-            {
-                return HttpNotFound();
-            }
-            return View("Index");
+            string venta = det_venta.venta.ToString();
+            db.detalle_v.Remove(det_venta);
+            db.SaveChanges();
+            
+            return Redirect("/ventas/Edit/" + venta);
+            
         }
 
         // POST: ventas/Delete/5

@@ -46,7 +46,7 @@ namespace intento2ado.Controllers
                         
                         db.SaveChanges();
                     }
-                    return Redirect("/Proveedor");
+                    return Redirect("/Proveedor/Index");
 
                 }
                 return View();
@@ -87,7 +87,7 @@ namespace intento2ado.Controllers
                         _db.Entry(newProv).State = System.Data.Entity.EntityState.Modified; ;
                         _db.SaveChanges();
                     }
-                    return Redirect("/Proveedor");
+                    return Redirect("/Proveedor/Index");
 
                 }
                 return View();
@@ -107,7 +107,7 @@ namespace intento2ado.Controllers
             _db.prov.Remove(oProv);
             _db.SaveChanges();
 
-            return Redirect("/Proveedor");
+            return Redirect("/Proveedor/Index");
         }
 
     }

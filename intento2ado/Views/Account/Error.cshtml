@@ -1,8 +1,19 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Error";
     Layout = "~/Views/Shared/_LayoutPage1.cshtml";
 }
 
-<h2>Sucedio algo inesperado</h2>
 
+
+<h1>Inicio de Sesión:</h1>
+<div class=" w3l-login-form">
+    <h2>Sucedio algo inesperado!!!!</h2>
+    <div class=" w3l-form-group">
+        <label> Usuario o Contraseña incorrectos</label>
+    </div>
+    <button>@Html.ActionLink("Volver al Login", "Login", "Account", null, null)</button>
+
+</div>
+<footer>
+    <p class="copyright-agileinfo"> &copy; 2020 MiniMarket Luciano. All Rights Reserved | Design by RMJ</p>
+</footer>

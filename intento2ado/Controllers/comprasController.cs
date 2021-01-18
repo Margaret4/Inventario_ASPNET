@@ -51,24 +51,17 @@ namespace intento2ado.Controllers
         public ActionResult Create( compra compra)
         {
             int tmp = 1;
-            try { 
-                tmp += db.detalle_c.Max(d => d.id); }
-            catch (Exception e)
-            {
-                tmp = 1;
-                string msj = e.ToString();
+            try {
+                tmp += db.compra.Max(d => d.id);
             }
-            finally
-            {
-                compra.id = tmp;
-                compra.fecha = DateTime.Now;
-                compra.tot = 0;
-                db.compra.Add(compra);
-                db.SaveChanges();
+            catch (Exception e ){ 
             }
+
+            db.Database.ExecuteSqlCommand("insert into compra(id,prov) values ( "+tmp.ToString()+",'" + compra.prov+ "');");
+            int idm = db.venta.Max(v => v.id);
+
             return RedirectToAction("Index");
-            //ViewBag.prov = new SelectList(db.prov, "id", "nom", compra.prov);
-            //return View(compra);
+
         }
 
         // GET: compras/Edit/5
@@ -92,13 +85,16 @@ namespace intento2ado.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(compra compra)
+        public ActionResult Edit([Bind(Include = "id,prov,tot,fecha")] compra compra)
         {
-
-            db.Entry(compra).State = EntityState.Modified;
-            db.SaveChanges();
-            return RedirectToAction("Index");
-            
+            if (ModelState.IsValid)
+            {
+                db.Entry(compra).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.prov = new SelectList(db.prov, "id", "nom", compra.prov);
+            return View(compra);
         }
 
         // GET: compras/Delete/5

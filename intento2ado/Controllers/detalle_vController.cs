@@ -19,6 +19,7 @@ namespace intento2ado.Controllers
         {
             var detalle_v = db.detalle_v.Include(d => d.prod).Include(d => d.venta1).Where(d=> d.venta==venta);
             ViewBag.tot = db.venta.Find(venta).tot;
+            ViewBag.venta = venta;
             return View(detalle_v.ToList());
         }
 
@@ -38,11 +39,11 @@ namespace intento2ado.Controllers
         }
 
         // GET: detalle_v/Create
-        public ActionResult Create(int venta)
+        public ActionResult Create(int? id)
         {
             var prods1 =
             from p in db.prod
-            join u in db.detalle_v.Where(detalle_v => detalle_v.venta == venta)
+            join u in db.detalle_v.Where(detalle_v => detalle_v.venta == id)
             on new { detalle_c = p.id } equals new { detalle_c = u.produc } into lj
             from x in lj.DefaultIfEmpty()
             where x.produc == null
@@ -57,7 +58,7 @@ namespace intento2ado.Controllers
                 prods.Add(db.prod.Find(i.id));
             }
             ViewBag.produc = new SelectList(prods, "id", "nom");
-            ViewBag.venta = venta;
+            ViewBag.venta = id;
             return View();
         }
 
@@ -66,13 +67,24 @@ namespace intento2ado.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,produc,venta,canti,monto")] detalle_v detalle_v)
+        public ActionResult Create(int? id,[Bind(Include = "id,produc,venta,canti,monto")] detalle_v detalle_v)
         {
             if (ModelState.IsValid)
             {
-                db.detalle_v.Add(detalle_v);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                int tmp = 1;
+                try
+                {
+                    tmp += db.detalle_v.Max(d => d.id);
+                }
+                catch (Exception e) { 
+                }
+                detalle_v.id = tmp;
+                detalle_v.monto = detalle_v.canti* db.prod.Find(detalle_v.produc).precio.Value;
+                //detalle_v.venta = 3;
+                db.Database.ExecuteSqlCommand("insert into detalle_v (monto,venta,produc,canti) values ("
+                    + detalle_v.monto.ToString() + ", " + detalle_v.venta.ToString() + 
+                    ",'" + detalle_v.produc + "'," + detalle_v.canti.ToString() + ");"); 
+                return RedirectToAction("Edit","ventas",new { id= detalle_v.venta});
             }
             var prods1 =
             from p in db.prod
@@ -91,7 +103,7 @@ namespace intento2ado.Controllers
                 prods.Add(db.prod.Find(i.id));
             }
             ViewBag.produc = new SelectList(prods, "id", "nom");
-            ViewBag.venta = new SelectList(db.venta, "id", "dnivend", detalle_v.venta);
+            ViewBag.venta = id;
             return View(detalle_v);
         }
 
@@ -183,9 +195,10 @@ namespace intento2ado.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             detalle_v detalle_v = db.detalle_v.Find(id);
+            int? venta = detalle_v.venta;
             db.detalle_v.Remove(detalle_v);
             db.SaveChanges();
-            return RedirectToAction("Edit", "Venta", new { id = detalle_v.venta });
+            return RedirectToAction("Edit", "Ventas", new { id = venta });
         }
 
         protected override void Dispose(bool disposing)

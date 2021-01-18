@@ -7,7 +7,7 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create","detalle_v", new { id = ViewBag.venta}))
 {
     @Html.AntiForgeryToken()
     
@@ -23,14 +23,8 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.venta, "venta", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("venta", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.venta, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
+        @Html.HiddenFor(m=>m.venta, new { Value=@ViewBag.venta})
+        
         <div class="form-group">
             @Html.LabelFor(model => model.canti, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -56,5 +50,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", new { venta=ViewBag.venta})
 </div>

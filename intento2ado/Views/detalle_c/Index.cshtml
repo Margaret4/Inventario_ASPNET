@@ -1,10 +1,14 @@
 ﻿@model IEnumerable<intento2ado.Models.detalle_c>
+
 @{
-    ViewBag.Title = "Detalles";
+    ViewBag.Title = "Index";
     Layout = null;
 }
+
+<h2>Index</h2>
+
 <p>
-    @Html.ActionLink("Añadir Detalle", "Create",new { compra = ViewBag.compra})
+    @Html.ActionLink("Create New", "Create", new {venta= ViewBag.venta})
 </p>
 <table class="table">
     <tr>
@@ -18,47 +22,36 @@
             @Html.DisplayNameFor(model => model.tot)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.compra1.id)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.prod.nom)
         </th>
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.canti)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.prec_unit)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.tot)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.prod.nom)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.id })
-            </td>
-        </tr>
-    }
+@foreach (var item in Model) {
     <tr>
-        <th>
-            Total
-        </th>
-        <th>
-            
-        </th>
-        <th>
-            @ViewBag.tot
-        </th>
-        <th>
-            
-        </th>
-        <th></th>
+        <td>
+            @Html.DisplayFor(modelItem => item.canti)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.prec_unit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tot)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.compra1.id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.prod.nom)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
     </tr>
+}
 
 </table>

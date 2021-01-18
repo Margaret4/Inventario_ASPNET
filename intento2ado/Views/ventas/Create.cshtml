@@ -2,33 +2,39 @@
 
 @{
     ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <hr />
-        
 
+<div class="form-horizontal">
+    <h4>venta</h4>
+    <hr />    
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.id)
 
-        <div class="form-group">
-            <h3>Seleccione Vendedor</h3>
-            <div class="col-md-10">
-                @Html.DropDownList("dnivend", null,"vendedor por defecto", htmlAttributes: new { @class = "form-control", @value= @ViewBag.SelectedDni})
-                @Html.ValidationMessageFor(model => model.dnivend, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Crear venta" class="btn btn-default" />
-            </div>
+    @Html.HiddenFor(model => model.tot)
+    @Html.HiddenFor(model => model.fecha)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.dnivend, "dnivend", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("dnivend", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.dnivend, "", new { @class = "text-danger" })
         </div>
     </div>
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
 }
 
 <div>

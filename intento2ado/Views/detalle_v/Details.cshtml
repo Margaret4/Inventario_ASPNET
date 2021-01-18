@@ -1,0 +1,51 @@
+﻿@model intento2ado.Models.detalle_v
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>detalle_v</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.canti)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.canti)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.monto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.monto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.prod.nom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.prod.nom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.venta1.dnivend)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.venta1.dnivend)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

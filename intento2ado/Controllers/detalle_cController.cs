@@ -131,11 +131,12 @@ namespace intento2ado.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(detalle_c detalle_c)
         {
+            int? compra = detalle_c.compra;
             int? tmp = db.detalle_c.Find(detalle_c.id).compra;
             detalle_c.compra = tmp;            
             db.Entry(detalle_c).State = EntityState.Modified;
             db.SaveChanges();
-            return RedirectToAction("Edit", "compras", new { id = detalle_c.compra });
+            return RedirectToAction("Edit", "compras", new { id = compra });
 
         }
 

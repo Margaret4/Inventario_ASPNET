@@ -95,8 +95,6 @@ namespace intento2ado.Controllers
         public ActionResult Edit(compra compra)
         {
 
-            var tot = db.compra.Find(compra.id).tot.Value;
-            compra.tot = tot;
             db.Entry(compra).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");

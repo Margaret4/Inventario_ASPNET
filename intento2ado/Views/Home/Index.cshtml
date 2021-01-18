@@ -32,7 +32,7 @@
 
             // finally we send the AJAX request:
             $.ajax({
-                url: form.attr('Home/Index1/'+catId),
+                url: form.attr('./Index1/'+catId),
                 type: form.attr('get'),
                 data: form.serialize(),
                 success: function (result) {
@@ -40,7 +40,7 @@
                     // will contain the partial HTML returned by the action
                     // we inject it into the div:
                     console.log(typeof(result));
-                    $('#products').load('Home/Index1/' + catId);
+                    $('#products').load('./Index1/' + catId);
                 }
             });
         });

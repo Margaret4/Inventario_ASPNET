@@ -140,6 +140,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\comprasController.cs" />
+    <Compile Include="Controllers\detalle_cController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProveedorController.cs" />
     <Compile Include="Controllers\ventasController.cs" />
@@ -257,11 +258,6 @@
     <Content Include="Views\Proveedor\EditProv.cshtml" />
     <Content Include="Views\Home\Index1.cshtml" />
     <Content Include="Views\Proveedor\Index1.cshtml" />
-    <Content Include="Views\compras\Create.cshtml" />
-    <Content Include="Views\compras\Delete.cshtml" />
-    <Content Include="Views\compras\Details.cshtml" />
-    <Content Include="Views\compras\Edit.cshtml" />
-    <Content Include="Views\compras\Index.cshtml" />
     <Content Include="Views\ventas\Create.cshtml" />
     <Content Include="Views\ventas\Delete.cshtml" />
     <Content Include="Views\ventas\Details.cshtml" />
@@ -272,6 +268,16 @@
     <Content Include="Views\Account\Error.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Shared\_LayoutPage1.cshtml" />
+    <Content Include="Views\compras\Create.cshtml" />
+    <Content Include="Views\compras\Delete.cshtml" />
+    <Content Include="Views\compras\Details.cshtml" />
+    <Content Include="Views\compras\Edit.cshtml" />
+    <Content Include="Views\compras\Index.cshtml" />
+    <Content Include="Views\detalle_c\Create.cshtml" />
+    <Content Include="Views\detalle_c\Delete.cshtml" />
+    <Content Include="Views\detalle_c\Details.cshtml" />
+    <Content Include="Views\detalle_c\Edit.cshtml" />
+    <Content Include="Views\detalle_c\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

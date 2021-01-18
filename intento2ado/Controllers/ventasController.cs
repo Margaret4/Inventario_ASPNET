@@ -39,7 +39,8 @@ namespace intento2ado.Controllers
         // GET: ventas/Create
         public ActionResult Create()
         {
-            ViewBag.dnivend = new SelectList(db.vend, "dni", "nom");
+            var selected_v = (Request.Cookies["vend"].Value != null) ? Request.Cookies["vend"].Value : null;
+            ViewBag.dnivend = new SelectList(db.vend, "dni", "nom",selected_v);
             ViewBag.ReturnDate = DateTime.Now;
 
             return View();
@@ -52,23 +53,23 @@ namespace intento2ado.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(venta venta)
         {
-            string tiemp = DateTime.Now.ToString();
-            if (venta.dnivend!=null)
-                db.Database.ExecuteSqlCommand("insert into venta values ("+venta.id+",0,'"+tiemp + "','" + venta.dnivend + "');");
-            ViewBag.dnivend = new SelectList(db.vend, "dni", "nom", venta.dnivend);
-            int id=db.Database.ExecuteSqlCommand("select id from venta where fecha like'" + tiemp +"';");
-            return RedirectToAction("Edit", new { id = id, flag = true });
+            DateTime t = DateTime.Now;
+            string tiemp = t.ToString();
+            tiemp = tiemp.Substring(3, 2) + "/" + tiemp.Substring(0, 2) + tiemp.Substring(5);
+            //if (venta.dnivend != null)
+                //db.Database.ExecuteSqlCommand("insert into venta (fecha,dnivend) values (CAST('" + tiemp + "' AS DATETIME),'" + venta.dnivend + "');");
+            //ViewBag.dnivend = new SelectList(db.vend, "dni", "nom", venta.dnivend); }
+            int intIdt = db.venta.Max(u => u.id);
+            return RedirectToAction("AnadirDet", new { id1 =  5});
         }
 
         // GET: ventas/Edit/5
+        public ActionResult AnadirDet(int? id1) {
+            return RedirectToAction("Edit", new { id =id1 });
+        }
         public ActionResult Edit(int? id)
         {
-            return RedirectToAction("Edit", new { id = id, flag=false });
-        }
-        public ActionResult Edit(int? id, bool flag)
-        {
-            if (flag) ViewBag.title = "Nueva Venta - Añadir detalle";
-            else ViewBag.title = "Editar Venta";
+            ViewBag.title = "Editar Venta";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -82,15 +83,13 @@ namespace intento2ado.Controllers
             ViewBag.dnivends = new SelectList(db.vend.ToList(), "dni", "nom", ViewBag.vend.dni);
             return View(venta);
         }
-
-
         // POST: ventas/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         
-        public ActionResult Edit([Bind(Include = "id,tot,fecha,dnivend")] venta venta)
+        public ActionResult Edit(venta venta)
         {
             if (ModelState.IsValid)
             {

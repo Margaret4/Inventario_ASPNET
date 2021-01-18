@@ -39,28 +39,27 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <h1>Inicio de Sesión:</h1>
     <div class=" w3l-login-form">
         <h2>Ingrese sus datos aquí:</h2>
-        <form action="Verify" method="POST">
-
-            <div class=" w3l-form-group">
-                <label>DNI:</label>
-                <div class="group">
-                    <i class="fas fa-user"></i>
-                    <input type="text" class="form-control" placeholder="Ingrese su DNI" required="required" name="dni"/>
+            @Html.BeginForm("Verify", "Account", FormMethod.Post){
+                <div class=" w3l-form-group">
+                    <label>DNI:</label>
+                    <div class="group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" class="form-control" placeholder="Ingrese su DNI" required="required" name="dni" />
+                    </div>
                 </div>
-            </div>
-            <div class=" w3l-form-group">
-                <label>Contraseña:</label>
-                <div class="group">
-                    <i class="fas fa-unlock"></i>
-                    <input type="password" class="form-control" placeholder="Ingrese su contraseña" required="required" name="pwd" />
+                <div class=" w3l-form-group">
+                    <label>Contraseña:</label>
+                    <div class="group">
+                        <i class="fas fa-unlock"></i>
+                        <input type="password" class="form-control" placeholder="Ingrese su contraseña" required="required" name="pwd" />
+                    </div>
                 </div>
-            </div>
-            <div class="forgot">
-                <a href="#">Forgot Password?</a>
-                <p><input type="checkbox">Recuérdame</p>
-            </div>
-            <button type="submit">Ingresar</button>
-        </form>
+                <div class="forgot">
+                    <a href="#">Forgot Password?</a>
+                    <p><input type="checkbox">Recuérdame</p>
+                </div>
+                <button type="submit">Ingresar</button>
+            }
     </div>
     <footer>
         <p class="copyright-agileinfo"> &copy; 2020 MiniMarket Luciano. All Rights Reserved | Design by RMJ</p>

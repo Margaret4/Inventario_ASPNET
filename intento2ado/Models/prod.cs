@@ -11,8 +11,7 @@ namespace intento2ado.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class prod
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,9 +20,8 @@ namespace intento2ado.Models
             this.detalle_c = new HashSet<detalle_c>();
             this.detalle_v = new HashSet<detalle_v>();
         }
-        [Required(ErrorMessage = "Introduzca un codigo de 10 caracteres")]
+    
         public string id { get; set; }
-        [Required(ErrorMessage = "Introduzca el nombre del producto de 20 caracteres")]
         public string nom { get; set; }
         public string detalle { get; set; }
         public Nullable<double> precio { get; set; }

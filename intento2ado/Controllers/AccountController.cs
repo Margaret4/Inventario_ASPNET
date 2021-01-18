@@ -41,6 +41,9 @@ namespace intento2ado.Controllers
             {
                 con.Close();
                 HttpCookie kt1 = new HttpCookie("vend", acc.dni);
+                kt1.Expires = DateTime.Now.AddHours(2);
+                Response.Cookies.Add(kt1);
+               
                 return RedirectToAction("Index", "Home");
                 
             }

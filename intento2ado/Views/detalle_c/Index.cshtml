@@ -1,0 +1,64 @@
+﻿@model IEnumerable<intento2ado.Models.detalle_c>
+@{
+    ViewBag.Title = "Detalles";
+    Layout = null;
+}
+<p>
+    @Html.ActionLink("Añadir Detalle", "Create",new { compra = ViewBag.compra})
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.canti)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.prec_unit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tot)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.prod.nom)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.canti)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.prec_unit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tot)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.prod.nom)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+            </td>
+        </tr>
+    }
+    <tr>
+        <th>
+            Total
+        </th>
+        <th>
+            
+        </th>
+        <th>
+            @ViewBag.tot
+        </th>
+        <th>
+            
+        </th>
+        <th></th>
+    </tr>
+
+</table>

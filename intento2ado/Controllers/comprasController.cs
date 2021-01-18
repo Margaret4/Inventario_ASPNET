@@ -48,17 +48,27 @@ namespace intento2ado.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,prov")] compra compra)
+        public ActionResult Create( compra compra)
         {
-            if (ModelState.IsValid)
+            int tmp = 1;
+            try { 
+                tmp += db.detalle_c.Max(d => d.id); }
+            catch (Exception e)
             {
+                tmp = 1;
+                string msj = e.ToString();
+            }
+            finally
+            {
+                compra.id = tmp;
+                compra.fecha = DateTime.Now;
+                compra.tot = 0;
                 db.compra.Add(compra);
                 db.SaveChanges();
-                return RedirectToAction("Index");
             }
-
-            ViewBag.prov = new SelectList(db.prov, "id", "nom", compra.prov);
-            return View(compra);
+            return RedirectToAction("Index");
+            //ViewBag.prov = new SelectList(db.prov, "id", "nom", compra.prov);
+            //return View(compra);
         }
 
         // GET: compras/Edit/5
@@ -82,16 +92,15 @@ namespace intento2ado.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,prov")] compra compra)
+        public ActionResult Edit(compra compra)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(compra).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.prov = new SelectList(db.prov, "id", "nom", compra.prov);
-            return View(compra);
+
+            var tot = db.compra.Find(compra.id).tot.Value;
+            compra.tot = tot;
+            db.Entry(compra).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+            
         }
 
         // GET: compras/Delete/5
@@ -120,6 +129,13 @@ namespace intento2ado.Controllers
             return RedirectToAction("Index");
         }
 
-        
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }

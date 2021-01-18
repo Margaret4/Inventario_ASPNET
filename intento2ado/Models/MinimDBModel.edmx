@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MINIMARKETModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="MINIMARKETModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="categ">
           <Key>
             <PropertyRef Name="id" />
@@ -18,6 +18,8 @@
           </Key>
           <Property Name="id" Type="int" Nullable="false" />
           <Property Name="prov" Type="int" />
+          <Property Name="tot" Type="float" />
+          <Property Name="fecha" Type="datetime" />
         </EntityType>
         <EntityType Name="detalle_c">
           <Key>
@@ -82,9 +84,9 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="tot" Type="float" />
-          <Property Name="fecha" Type="date" />
+          <Property Name="fecha" Type="datetime" />
           <Property Name="dnivend" Type="varchar" MaxLength="8" />
         </EntityType>
         <Association Name="FK__compra__prov__2E1BDC42">
@@ -123,7 +125,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__detalle_v__produ__5FB337D6">
+        <Association Name="FK__detalle_v__produ__7F2BE32F">
           <End Role="prod" Type="Self.prod" Multiplicity="0..1" />
           <End Role="detalle_v" Type="Self.detalle_v" Multiplicity="*" />
           <ReferentialConstraint>
@@ -135,7 +137,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__detalle_v__venta__60A75C0F">
+        <Association Name="FK__detalle_v__venta__00200768">
           <End Role="venta" Type="Self.venta" Multiplicity="0..1" />
           <End Role="detalle_v" Type="Self.detalle_v" Multiplicity="*" />
           <ReferentialConstraint>
@@ -171,7 +173,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__venta__dnivend__4CA06362">
+        <Association Name="FK__venta__dnivend__7C4F7684">
           <End Role="vend" Type="Self.vend" Multiplicity="0..1" />
           <End Role="venta" Type="Self.venta" Multiplicity="*" />
           <ReferentialConstraint>
@@ -205,11 +207,11 @@
             <End Role="prod" EntitySet="prod" />
             <End Role="detalle_c" EntitySet="detalle_c" />
           </AssociationSet>
-          <AssociationSet Name="FK__detalle_v__produ__5FB337D6" Association="Self.FK__detalle_v__produ__5FB337D6">
+          <AssociationSet Name="FK__detalle_v__produ__7F2BE32F" Association="Self.FK__detalle_v__produ__7F2BE32F">
             <End Role="prod" EntitySet="prod" />
             <End Role="detalle_v" EntitySet="detalle_v" />
           </AssociationSet>
-          <AssociationSet Name="FK__detalle_v__venta__60A75C0F" Association="Self.FK__detalle_v__venta__60A75C0F">
+          <AssociationSet Name="FK__detalle_v__venta__00200768" Association="Self.FK__detalle_v__venta__00200768">
             <End Role="venta" EntitySet="venta" />
             <End Role="detalle_v" EntitySet="detalle_v" />
           </AssociationSet>
@@ -221,13 +223,12 @@
             <End Role="categ" EntitySet="categ" />
             <End Role="prov" EntitySet="prov" />
           </AssociationSet>
-          <AssociationSet Name="FK__venta__dnivend__4CA06362" Association="Self.FK__venta__dnivend__4CA06362">
+          <AssociationSet Name="FK__venta__dnivend__7C4F7684" Association="Self.FK__venta__dnivend__7C4F7684">
             <End Role="vend" EntitySet="vend" />
             <End Role="venta" EntitySet="venta" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MINIMARKETModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -248,6 +249,8 @@
           <Property Name="prov" Type="Int32" />
           <NavigationProperty Name="prov1" Relationship="Self.FK__compra__prov__2E1BDC42" FromRole="compra" ToRole="prov" />
           <NavigationProperty Name="detalle_c" Relationship="Self.FK__detalle_c__mov__36B12243" FromRole="compra" ToRole="detalle_c" />
+          <Property Name="tot" Type="Double" />
+          <Property Name="fecha" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="detalle_c">
           <Key>
@@ -324,7 +327,7 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" />
           <Property Name="tot" Type="Double" />
-          <Property Name="fecha" Type="DateTime" Precision="0" />
+          <Property Name="fecha" Type="DateTime" Precision="3" />
           <Property Name="dnivend" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="detalle_v" Relationship="Self.FK__detalle_v__venta__60A75C0F" FromRole="venta" ToRole="detalle_v" />
           <NavigationProperty Name="vend" Relationship="Self.FK__venta__dnivend__4CA06362" FromRole="venta" ToRole="vend" />
@@ -485,6 +488,8 @@
           <EntitySetMapping Name="compra">
             <EntityTypeMapping TypeName="MINIMARKETModel.compra">
               <MappingFragment StoreEntitySet="compra">
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="tot" ColumnName="tot" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="prov" ColumnName="prov" />
               </MappingFragment>

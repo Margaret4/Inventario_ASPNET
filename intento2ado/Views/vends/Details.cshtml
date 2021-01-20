@@ -1,0 +1,44 @@
+﻿@model intento2ado.Models.vend
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>vend</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pwd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pwd)
+        </dd>
+
+    </dl>
+    <div class="form-group">
+        <div class="col-md-2">
+            <h5>Contraseña:</h5>
+        </div>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.pwd, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.pwd, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.dni }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

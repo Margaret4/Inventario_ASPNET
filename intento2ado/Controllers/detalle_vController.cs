@@ -55,9 +55,9 @@ namespace intento2ado.Controllers
             List<prod> prods = new List<prod>();
             foreach (var i in prods1)
             {
-                prods.Add(db.prod.Find(i.id));
+               // prods.Add(db.prod.Find(i.id));
             }
-            ViewBag.produc = new SelectList(prods, "id", "nom");
+            ViewBag.produc = new SelectList(db.prod.ToList(), "id", "nom");
             ViewBag.venta = id;
             return View();
         }
@@ -80,10 +80,9 @@ namespace intento2ado.Controllers
                 }
                 detalle_v.id = tmp;
                 detalle_v.monto = detalle_v.canti* db.prod.Find(detalle_v.produc).precio.Value;
-                //detalle_v.venta = 3;
+                detalle_v.venta = 4;
                 db.Database.ExecuteSqlCommand("insert into detalle_v (monto,venta,produc,canti) values ("
-                    + detalle_v.monto.ToString() + ", " + detalle_v.venta.ToString() + 
-                    ",'" + detalle_v.produc + "'," + detalle_v.canti.ToString() + ");"); 
+                + detalle_v.monto.ToString() + ", " + detalle_v.venta.ToString() + ",'" + detalle_v.produc + "'," + detalle_v.canti.ToString() + ")");
                 return RedirectToAction("Edit","ventas",new { id= detalle_v.venta});
             }
             var prods1 =
@@ -100,9 +99,9 @@ namespace intento2ado.Controllers
             List<prod> prods = new List<prod>();
             foreach (var i in prods1)
             {
-                prods.Add(db.prod.Find(i.id));
+                //prods.Add(db.prod.Find(i.id));
             }
-            ViewBag.produc = new SelectList(prods, "id", "nom");
+            ViewBag.produc = new SelectList(db.prod.ToList(), "id", "nom");
             ViewBag.venta = id;
             return View(detalle_v);
         }
@@ -133,9 +132,9 @@ namespace intento2ado.Controllers
             List<prod> prods = new List<prod>();
             foreach (var i in prods1)
             {
-                prods.Add(db.prod.Find(i.id));
+            //    prods.Add(db.prod.Find(i.id));
             }
-            ViewBag.produc = new SelectList(prods, "id", "nom");
+            ViewBag.produc = new SelectList(db.prod.ToList(), "id", "nom");
             ViewBag.venta = new SelectList(db.venta, "id", "dnivend", detalle_v.venta);
             return View(detalle_v);
         }

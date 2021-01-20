@@ -58,9 +58,9 @@ namespace intento2ado.Controllers
             }
 
             db.Database.ExecuteSqlCommand("insert into compra(id,prov) values ( "+tmp.ToString()+",'" + compra.prov+ "');");
-            int idm = db.venta.Max(v => v.id);
+            
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Edit","Compras",new {id= tmp});
 
         }
 
@@ -77,6 +77,7 @@ namespace intento2ado.Controllers
                 return HttpNotFound();
             }
             ViewBag.prov = new SelectList(db.prov, "id", "nom", compra.prov);
+            ViewBag.compra = id;
             return View(compra);
         }
 

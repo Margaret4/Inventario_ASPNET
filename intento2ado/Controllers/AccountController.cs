@@ -23,7 +23,7 @@ namespace intento2ado.Controllers
         }
         void connectionString()
         {
-            con.ConnectionString = "data source=DESKTOP-56NO6T0; database=MINIMARKET; integrated security=SSPI;";
+            con.ConnectionString = "Data Source = SQL5101.site4now.net; Initial Catalog = DB_A6E0A3_MINIMARKET; User Id = DB_A6E0A3_MINIMARKET_admin; Password = @ABC123@";
             //&quot; data source = ; initial catalog = MINIMARKET; integrated security = True; MultipleActiveResultSets = True; App = EntityFramework & quot
 
         }

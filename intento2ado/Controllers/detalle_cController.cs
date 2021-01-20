@@ -15,11 +15,13 @@ namespace intento2ado.Controllers
         private MINIMARKETEntities db = new MINIMARKETEntities();
 
         // GET: detalle_c
-        public ActionResult Index(int? compra)
+        public ActionResult Index(int? id)
         {
-            var detalle_c = db.detalle_c.Include(d => d.compra1).Include(d => d.prod).Where(d=>d.compra==compra);
-            ViewBag.compra = compra;
-            return View(detalle_c.ToList());
+            var detalle_c1 = db.detalle_c.Include(d => d.compra1).Include(d => d.prod).Where(d=>d.compra==id);
+            ViewBag.tot = db.compra.Find(id);
+            ViewBag.compra = id;
+            ViewBag.tot=db.compra.Find(id).tot;
+            return View(detalle_c1.ToList());
         }
 
         // GET: detalle_c/Details/5
@@ -55,9 +57,10 @@ namespace intento2ado.Controllers
             List<prod> prods = new List<prod>();
             foreach (var i in prods1)
             {
-                prods.Add(db.prod.Find(i.id));
+                //prods.Add(db.prod.Find(i.id));
             }
-            ViewBag.produc = new SelectList(prods, "id", "nom");
+
+            ViewBag.produc = new SelectList(db.prod.ToList(), "id", "nom");
             return View();
         }
 
@@ -71,14 +74,21 @@ namespace intento2ado.Controllers
             int tmp = 1;
             try
             {
-                tmp += db.compra.Max(d => d.id);
+                tmp += db.detalle_c.Max(d => d.id);
             }
             catch (Exception e)
             {
             }
-            db.Database.ExecuteSqlCommand("insert into compra(id,produc,canti,compra,prec_unit) values ( " + tmp.ToString() + ",'" + detalle_c.produc + "'," + detalle_c.canti+","+detalle_c.compra+","+detalle_c.prec_unit + ");");
-            
-            return RedirectToAction("Index");
+            string query= "insert into detalle_c(id,produc,canti,compra,prec_unit,tot) values " +
+                "( " + tmp.ToString() + ",'" + detalle_c.produc + "'," + detalle_c.canti.ToString() + "," + detalle_c.compra.ToString() + "," + detalle_c.prec_unit.ToString() + "," + (detalle_c.prec_unit * detalle_c.canti).ToString() + ");";
+            db.Database.ExecuteSqlCommand(query);
+            //Actualizar id = compra
+            query = "update compra set tot=tot+"+ (detalle_c.prec_unit * detalle_c.canti).ToString()+"where id="+detalle_c.compra+";";
+            db.Database.ExecuteSqlCommand(query);
+            //actualizar id = produc
+            query = "update prod set canti=canti+" + (detalle_c.canti).ToString() + "where id='" + detalle_c.produc + "';";
+            db.Database.ExecuteSqlCommand(query);
+            return RedirectToAction("Edit","Compras",new { id=detalle_c.compra});
             
 
         }
@@ -107,15 +117,27 @@ namespace intento2ado.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id,produc,canti,compra,prec_unit,tot")] detalle_c detalle_c)
         {
+            detalle_c tmp1 = db.detalle_c.Find(detalle_c.id);
+            string ant_prod_id = tmp1.produc;
+            int prod_canti = tmp1.canti.Value;
             if (ModelState.IsValid)
             {
                 db.Entry(detalle_c).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit","Compras",new { compra=detalle_c.compra});
             }
             ViewBag.compra = detalle_c.compra;
+            //Actualizar id = compra
+            string query = "update compra set tot=tot-" + (detalle_c.tot).ToString()+"+"+ (detalle_c.canti*detalle_c.prec_unit).ToString()+ "where compra=" + detalle_c.compra.ToString() + ";";
+            db.Database.ExecuteSqlCommand(query);
+            
+            //actualizar id = produc
+            query = "update prod set canti=canti-" + (prod_canti).ToString() + "where id='" + ant_prod_id + "';";
+            db.Database.ExecuteSqlCommand(query);
+            query = "update prod set canti=canti+" + (detalle_c.canti).ToString() + "where id='" + detalle_c.produc+ "';";
+            db.Database.ExecuteSqlCommand(query);
             ViewBag.produc = new SelectList(db.prod, "id", "nom", detalle_c.produc);
-            return View(detalle_c);
+            return RedirectToAction("Edit", "Compras", new { id = detalle_c.compra });
         }
 
         // GET: detalle_c/Delete/5
@@ -139,9 +161,21 @@ namespace intento2ado.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             detalle_c detalle_c = db.detalle_c.Find(id);
+            float monto = (float)detalle_c.tot.Value;
+            int compra = detalle_c.compra.Value;
             db.detalle_c.Remove(detalle_c);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            //Actualizar id = compra
+            string query = "update compra set tot=tot-" + (monto).ToString() + "where compra=" + compra + ";";
+            db.Database.ExecuteSqlCommand(query);
+
+            //actualizar id = produc
+            query = "update prod set canti=canti-" + (detalle_c.canti).ToString() + "where id='" + detalle_c.produc+ "';";
+            db.Database.ExecuteSqlCommand(query);
+            ViewBag.produc = new SelectList(db.prod, "id", "nom", detalle_c.produc);
+
+
+            return RedirectToAction("Edit","Compras", new { id=compra});
         }
 
         protected override void Dispose(bool disposing)

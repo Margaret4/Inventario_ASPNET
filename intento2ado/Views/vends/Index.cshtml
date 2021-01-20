@@ -1,0 +1,46 @@
+﻿@model IEnumerable<intento2ado.Models.vend>
+
+@{
+    ViewBag.Title = "Lista de Usuarios";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p>
+    @Html.ActionLink("Añadir Nuevo Usuario", "Create",null, new { @class = "btn btn-primary" })
+</p>
+<table class="table table-striped table-bordered" >
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.dni)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.pwd)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.dni)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.pwd)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.dni }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.dni }, new { @class = "btn btn-danger" })
+                @Html.ActionLink("Detalles", "Details", new { id = item.dni }, new { @class = "btn btn-default" })
+            </td>
+
+        </tr>
+    }
+
+</table>

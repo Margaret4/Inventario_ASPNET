@@ -144,6 +144,7 @@
     <Compile Include="Controllers\detalle_vController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProveedorController.cs" />
+    <Compile Include="Controllers\vendsController.cs" />
     <Compile Include="Controllers\ventasController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -229,6 +230,7 @@
     <Content Include="Models\MinimDBModel.edmx.diagram">
       <DependentUpon>MinimDBModel.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\minimarket2021 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -283,6 +285,11 @@
     <Content Include="Views\detalle_v\Details.cshtml" />
     <Content Include="Views\detalle_v\Edit.cshtml" />
     <Content Include="Views\detalle_v\Index.cshtml" />
+    <Content Include="Views\vends\Create.cshtml" />
+    <Content Include="Views\vends\Delete.cshtml" />
+    <Content Include="Views\vends\Details.cshtml" />
+    <Content Include="Views\vends\Edit.cshtml" />
+    <Content Include="Views\vends\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

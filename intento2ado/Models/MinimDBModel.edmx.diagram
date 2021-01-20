@@ -4,15 +4,15 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f06e2a582f4e49e8bcc6f50bbde56ac9" Name="Diagram1">
-        <EntityTypeShape EntityType="MINIMARKETModel.categ" Width="1.5" PointX="0.75" PointY="6.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="MINIMARKETModel.compra" Width="1.5" PointX="5.25" PointY="8.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="MINIMARKETModel.detalle_c" Width="1.5" PointX="7.5" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="MINIMARKETModel.detalle_v" Width="1.5" PointX="5.25" PointY="4.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="MINIMARKETModel.prod" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="MINIMARKETModel.prov" Width="1.5" PointX="3" PointY="8" IsExpanded="true" />
-        <EntityTypeShape EntityType="MINIMARKETModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="2.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="MINIMARKETModel.vend" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
+      <Diagram DiagramId="f06e2a582f4e49e8bcc6f50bbde56ac9" Name="Diagram1" ZoomLevel="83">
+        <EntityTypeShape EntityType="MINIMARKETModel.categ" Width="1.5" PointX="1.625" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="MINIMARKETModel.compra" Width="1.5" PointX="4.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="MINIMARKETModel.detalle_c" Width="1.5" PointX="8.25" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MINIMARKETModel.detalle_v" Width="1.5" PointX="6.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MINIMARKETModel.prod" Width="1.5" PointX="4" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MINIMARKETModel.prov" Width="1.5" PointX="3.125" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MINIMARKETModel.sysdiagrams" Width="1.5" PointX="13.25" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MINIMARKETModel.vend" Width="1.5" PointX="2" PointY="3.625" IsExpanded="true" />
         <EntityTypeShape EntityType="MINIMARKETModel.venta" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="MINIMARKETModel.FK__prod__cat__267ABA7A" ManuallyRouted="false" />
         <AssociationConnector Association="MINIMARKETModel.FK__prov__cat__2B3F6F97" ManuallyRouted="false" />

@@ -8,7 +8,7 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create", new {venta= ViewBag.venta})
+    @Html.ActionLink("Create New", "Create", new {compra= ViewBag.compra})
 </p>
 <table class="table">
     <tr>
@@ -30,28 +30,47 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.canti)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.prec_unit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tot)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.compra1.id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.prod.nom)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+            </td>
+        </tr>
+    }
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.canti)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.prec_unit)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.tot)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.compra1.id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.prod.nom)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
+        <th>
+
+        </th>
+        <th>
+
+        </th>
+        <th>
+            
+        </th>
+        <th>
+
+        </th>
+        <th>
+            @ViewBag.tot
+        </th>
+        <th></th>
     </tr>
-}
 
 </table>

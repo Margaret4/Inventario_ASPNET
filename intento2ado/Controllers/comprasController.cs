@@ -118,9 +118,7 @@ namespace intento2ado.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            compra compra = db.compra.Find(id);
-            db.compra.Remove(compra);
-            db.SaveChanges();
+            db.Database.ExecuteSqlCommand("delete from compra where id= "+id.ToString());
             return RedirectToAction("Index");
         }
 

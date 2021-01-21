@@ -18,7 +18,7 @@ namespace intento2ado.Controllers
         public ActionResult Index(int? id)
         {
             var detalle_c1 = db.detalle_c.Include(d => d.compra1).Include(d => d.prod).Where(d=>d.compra==id);
-            ViewBag.tot = db.compra.Find(id);
+            
             ViewBag.compra = id;
             ViewBag.tot=db.compra.Find(id).tot;
             return View(detalle_c1.ToList());
@@ -79,6 +79,7 @@ namespace intento2ado.Controllers
             catch (Exception e)
             {
             }
+            //a;adir detalle
             string query= "insert into detalle_c(id,produc,canti,compra,prec_unit,tot) values " +
                 "( " + tmp.ToString() + ",'" + detalle_c.produc + "'," + detalle_c.canti.ToString() + "," + detalle_c.compra.ToString() + "," + detalle_c.prec_unit.ToString() + "," + (detalle_c.prec_unit * detalle_c.canti).ToString() + ");";
             db.Database.ExecuteSqlCommand(query);
@@ -120,15 +121,13 @@ namespace intento2ado.Controllers
             detalle_c tmp1 = db.detalle_c.Find(detalle_c.id);
             string ant_prod_id = tmp1.produc;
             int prod_canti = tmp1.canti.Value;
-            if (ModelState.IsValid)
-            {
-                db.Entry(detalle_c).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Edit","Compras",new { compra=detalle_c.compra});
-            }
+            string query;
+            //Actulizar detalle
+            query = "update detalle_c set tot=" + (detalle_c.canti * detalle_c.prec_unit).ToString() + ", canti=" + (detalle_c.canti).ToString() + ", prec_unit="+ detalle_c.prec_unit.ToString() + ", produc='"+detalle_c.produc+"' where id=" + detalle_c.id.ToString() + ";";
+            db.Database.ExecuteSqlCommand(query);
             ViewBag.compra = detalle_c.compra;
             //Actualizar id = compra
-            string query = "update compra set tot=tot-" + (detalle_c.tot).ToString()+"+"+ (detalle_c.canti*detalle_c.prec_unit).ToString()+ "where compra=" + detalle_c.compra.ToString() + ";";
+            query = "update compra set tot=tot-" + (detalle_c.tot).ToString()+"+"+ (detalle_c.canti*detalle_c.prec_unit).ToString()+ " where id=" + detalle_c.compra.ToString() + ";";
             db.Database.ExecuteSqlCommand(query);
             
             //actualizar id = produc

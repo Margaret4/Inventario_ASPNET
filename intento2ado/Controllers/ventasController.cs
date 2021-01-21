@@ -71,6 +71,7 @@ namespace intento2ado.Controllers
                 return HttpNotFound();
             }
             ViewBag.dnivend = new SelectList(db.vend, "dni", "nom", venta.dnivend);
+            ViewBag.venta = id;
             return View(venta);
         }
 

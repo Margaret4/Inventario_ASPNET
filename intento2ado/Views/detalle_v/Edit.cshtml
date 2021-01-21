@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
+<h2>Editar</h2>
 
 @using (Html.BeginForm())
 {
@@ -25,13 +25,7 @@
         </div>
     </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.venta, "venta", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("venta", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.venta, "", new { @class = "text-danger" })
-        </div>
-    </div>
+    @Html.HiddenFor(model => model.venta, new { venta = ViewBag.venta })
 
     <div class="form-group">
         @Html.LabelFor(model => model.canti, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -45,7 +39,7 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
+            <input type="submit" value="Guardar" class="btn btn-success" />
         </div>
     </div>
 </div>
